@@ -80,11 +80,11 @@ def write_events(transactions, output_file):
 
 
 def main():
-    csv_file_path = "../youinvest-csv-files/gsej-isa"
+    csv_file_path = "../youinvest-csv-files/gsej-sipp"
     transaction_rows = get_transaction_rows(csv_file_path)
     transactions = get_transactions(transaction_rows)
 
-    output_file_name = "../youinvest-csv-files/gsej-isa/transactions.json"
+    output_file_name = "../youinvest-csv-files/gsej-sipp/transactions.json"
     write_events(transactions, output_file_name)
 
 
