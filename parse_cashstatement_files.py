@@ -25,7 +25,7 @@ def get_cashstatement_rows(path):
     files = os.listdir(path)
 
     cashstatement_files = list(
-        filter(lambda filename: "cashstatement" in filename, files))
+        filter(lambda filename: "cashstatements" in filename, files))
     cashstatement_files.sort()
 
     print(cashstatement_files)
