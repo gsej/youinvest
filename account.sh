@@ -1,0 +1,4 @@
+python parse_transaction_files.py
+python process_transactions.py
+python parse_cashstatement_files.py
+python process_cashstatement_items.py

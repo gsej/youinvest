@@ -1,7 +1,9 @@
 from typing import NamedTuple
 from typing import List, Dict
 import json
-from unittest.util import sorted_list_difference
+
+import configuration
+
 # processes a transactions.json file (at the momement handling all of the events in the file, but later will
 # be able to stop at a particular date). 
 # creates an object showing the accumulated state of the account
@@ -24,7 +26,7 @@ class Holding():
         self.quantity = quantity
 
     def __str__(self):
-        justified = self.security.ljust(50)
+        justified = self.security.ljust(configuration.width)
         return justified + str(self.quantity)
 
 class AccountState():
@@ -81,7 +83,7 @@ def calculate_account_state(transactions: List):
 
 def main():
     if __name__ == "__main__":
-        transactions = read_transactions("../youinvest-csv-files/gsej-sipp/transactions.json")
+        transactions = read_transactions(configuration.dataDirectory + "/transactions.json")
         account_state = calculate_account_state(transactions)
         print(account_state)
         

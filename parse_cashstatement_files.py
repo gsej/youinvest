@@ -3,6 +3,7 @@ import os
 import datetime
 import json
 from typing import NamedTuple
+import configuration
 
 # processes a set of cash statement csv files, and outputs a cash statement.json file which contains a json array
 # of the events. 
@@ -21,8 +22,6 @@ def get_cashstatement_rows(path):
     cashstatement_files = list(
         filter(lambda filename: "cashstatements" in filename, files))
     cashstatement_files.sort()
-
-    print(cashstatement_files)
 
     for file in cashstatement_files:
         with open(path + "/" + file) as csvDataFile:
@@ -51,9 +50,6 @@ def get_cashstatement_items(cashstatement_rows):
         cashstatement_items.append(cashstatement_item)
         cashstatement_items.sort(key=get_date)
     
-    for item in cashstatement_items:
-        print(item)
-    
     return cashstatement_items
 
 
@@ -76,11 +72,11 @@ def write_events(cashstatement_items, output_file):
 
 
 def main():
-    csv_file_path = "../youinvest-csv-files/gsej-sipp"
+    csv_file_path = configuration.dataDirectory
     cashstatement_rows = get_cashstatement_rows(csv_file_path)
     cashstatement_items = get_cashstatement_items(cashstatement_rows)
 
-    output_file_name = "../youinvest-csv-files/gsej-sipp/cashstatement_items.json"
+    output_file_name = configuration.dataDirectory + "/cashstatement_items.json"
     write_events(cashstatement_items, output_file_name)
 
 if __name__ == "__main__":

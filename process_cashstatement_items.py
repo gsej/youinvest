@@ -3,6 +3,8 @@ import json
 
 from decimal import Decimal
 
+import configuration
+
 # processes a cashstatement_items.json file (at the momement handling all of the events in the file, but later will
 # be able to stop at a particular date). 
 # creates an object showing the accumulated state of the account
@@ -21,7 +23,7 @@ class AccountState():
         self.balance = self.balance + receipt_amount + payment_amount
 
     def __str__(self):
-        return "balance" + "\t" + str(self.balance)
+        return "Balance".ljust(configuration.width) + str(self.balance)
 
 def read_cashstatement_items(file_name):
     with open(file_name, 'r') as json_file:
@@ -39,7 +41,7 @@ def calculate_balance(items: List):
 
 def main():
     if __name__ == "__main__":
-        items = read_cashstatement_items("../youinvest-csv-files/gsej-sipp/cashstatement_items.json")
+        items = read_cashstatement_items(configuration.dataDirectory + "/cashstatement_items.json")
         account_state = calculate_balance(items)
         print(account_state)
         

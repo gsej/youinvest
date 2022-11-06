@@ -4,6 +4,8 @@ import datetime
 import json
 from typing import NamedTuple
 
+import configuration
+
 # processes a set of transaction csv files, and outputs a transactions.json file which contains a json array
 # of the transactions. 
 
@@ -23,8 +25,6 @@ def get_transaction_rows(path):
     transaction_files = list(
         filter(lambda filename: "transactionhistory" in filename, files))
     transaction_files.sort()
-
-    print(transaction_files)
 
     for file in transaction_files:
         with open(path + "/" + file) as csvDataFile:
@@ -55,9 +55,6 @@ def get_transactions(transaction_rows):
            transactions.append(transaction)
            transactions.sort(key=get_date)
     
-    for transaction in transactions:
-        print(transaction)
-    
     return transactions
 
 
@@ -80,11 +77,11 @@ def write_events(transactions, output_file):
 
 
 def main():
-    csv_file_path = "../youinvest-csv-files/gsej-sipp"
+    csv_file_path = configuration.dataDirectory
     transaction_rows = get_transaction_rows(csv_file_path)
     transactions = get_transactions(transaction_rows)
 
-    output_file_name = "../youinvest-csv-files/gsej-sipp/transactions.json"
+    output_file_name = configuration.dataDirectory + "/transactions.json"
     write_events(transactions, output_file_name)
 
 if __name__ == "__main__":
