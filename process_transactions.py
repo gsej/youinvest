@@ -24,7 +24,8 @@ class Holding():
         self.quantity = quantity
 
     def __str__(self):
-        return self.security + "\t" + str(self.quantity)
+        justified = self.security.ljust(50)
+        return justified + str(self.quantity)
 
 class AccountState():
     holdings: Dict[str, Holding]
