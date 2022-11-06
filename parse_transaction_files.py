@@ -87,7 +87,5 @@ def main():
     output_file_name = "../youinvest-csv-files/gsej-sipp/transactions.json"
     write_events(transactions, output_file_name)
 
-
-
 if __name__ == "__main__":
     main()

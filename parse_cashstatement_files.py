@@ -10,14 +10,8 @@ from typing import NamedTuple
 class CashStatementItem(NamedTuple):
     date: str
     description: str
-    receipt_amount_gbp: float
-    payment_amount_gbp: float
-
-    # def __init__(self, date, description, receipt_amount_gbp, payment_amount_gbp):
-    #     self.date = date
-    #     self.description = description
-    #     self.receipt_amount_gdp = receipt_amount_gbp
-    #     self.payment_amount_gdp = payment_amount_gbp
+    receipt_amount_gbp: str # string so it doesn't get converted to float with loss of precision
+    payment_amount_gbp: str
 
 def get_cashstatement_rows(path):
     cashstatement_rows = []
@@ -51,8 +45,8 @@ def get_cashstatement_items(cashstatement_rows):
         dateString = row['\ufeff"Date"']
         date = datetime.date(int(dateString[6:10]), int(dateString[3: 5]), int(dateString[0: 2])).isoformat()
         description = row["Description"]
-        receipt_amount_gbp = float(row["Receipt (GBP)"])
-        payment_amount_gbp = float(row["Payment (GBP)"])
+        receipt_amount_gbp = row["Receipt (GBP)"]
+        payment_amount_gbp = row["Payment (GBP)"]
         cashstatement_item = CashStatementItem(date, description, receipt_amount_gbp, payment_amount_gbp)
         cashstatement_items.append(cashstatement_item)
         cashstatement_items.sort(key=get_date)
