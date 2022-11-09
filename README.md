@@ -7,12 +7,12 @@ Transaction history files are csv files containing all purchases or sales of sec
 
 ## Instructions
 
-### Transaction History
+### Parsing CSV
 
-Run `parse_transaction_files.py` to parse the transaction history csv files from youinvest and produce a json file containing the transactions - `transactions.json`.
+`parse_transaction_files.py` and `parse_cashstatement_files.py` take the CSV files from youinvest and emit JSON files (`transactions.json` and `cashstatement_items.json`) containing the relevant data in order.
 
-Run `process_transactions.py` to read the json file containing the transactions and print a list of holdings at a particular point in time (currently processes all transactions).
+### Create account state for a particular time
 
-### Cash Statements
+`process_transactions.py` reads the `transactions.json` file and outputs the securities held in an account at a particular time (currently it reads them all so produces the latest state).
 
-Run `parse_cashstatement_files.py` to parse the csv cash statement files from youinvest and produce a json file containing
+`process_cashstatement_items.py` does the same, producing the cash balance.  
