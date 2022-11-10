@@ -17,7 +17,7 @@ class Transaction(NamedTuple):
     amount_gbp: float
     reference: str
 
-class Holding():
+class Holding:
     security: str
     quantity: int
     
@@ -29,12 +29,21 @@ class Holding():
         justified = self.security.ljust(configuration.width)
         return justified + str(self.quantity)
 
-class AccountState():
-    holdings: Dict[str, Holding]
+    def __iter__(self):
+        yield ('security', self.security)
+        yield ('quantity', self.quantity)
 
-    def __init__(self):
-        self.holdings = {} # Is this needed?
-    
+class AccountState():
+  #  holdings: Dict[str, Holding] = {}
+
+    def __init__(self, date, previous_account_state = None):
+        self.holdings: Dict[str, Holding] = {}
+        self.date = date
+
+        if (previous_account_state != None):
+            for holding in previous_account_state.holdings.values():
+                self.holdings[holding.security] = Holding(holding.security, holding.quantity)
+
     def add_transaction(self, transaction):
         holding = self.holdings.get(transaction["description"])
 
@@ -74,18 +83,51 @@ def read_transactions(file_name):
         transactions = json.load(json_file)
     return transactions
 
-def calculate_account_state(transactions: List):
-    account_state = AccountState()
+def calculate_current_account_state(transactions: List):
+    # todo: remove this
+    account_state = AccountState("date")
     for transaction in transactions:
         account_state.add_transaction(transaction)
     
     return account_state
 
+def calculate_account_states(transactions: List):
+    date = None
+    account_states = []
+
+    account_state = None
+
+    for transaction in transactions:
+        if (transaction["date"] != date):
+            date = transaction["date"]
+            if (account_state == None):
+                account_state = AccountState(date)
+            else:
+                account_state = AccountState(date, account_state)
+            account_states.append(account_state)
+        account_state.add_transaction(transaction)
+
+    return account_states
+
 def main():
     if __name__ == "__main__":
         transactions = read_transactions(configuration.dataDirectory + "/transactions.json")
-        account_state = calculate_account_state(transactions)
-        print(account_state)
+
+# todo: for each date in the list of transactions, calculate account state and add that state
+# to the output.
+
+        
+
+#        first_date = transactions[0].date
+
+        account_state = calculate_current_account_state(transactions)
+
+        if (configuration.output == 'text'):
+            print(account_state)
+        else:
+            non_zero_holdings = filter(lambda holding: holding.quantity > 70, account_state.holdings.values())
+            jsonText = json.dumps([dict(holding) for holding in non_zero_holdings], indent=2)
+            print (jsonText)
         
 if __name__ == "__main__":
     main()
