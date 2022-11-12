@@ -68,6 +68,9 @@ class AccountState():
         else:
             raise Exception("transaction type "+ transaction["transaction"] + " is not handled")
 
+        if (holding.quantity == 0):
+            del self.holdings[holding.security]
+
     def __str__(self):
         state = ""
         
