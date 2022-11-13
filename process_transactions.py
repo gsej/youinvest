@@ -91,13 +91,8 @@ class AccountState():
 class AccountStatesJSONEncoder(json.JSONEncoder):
     def default(self, o: List[AccountState]):
         if isinstance(o, AccountState):
-           holdings = list(o.holdings.values())
-           holdings.sort(key=lambda h: h.security)
-
-           hhh = list(map(lambda h: dict(h), holdings))
-
-           #sorted_holdings = hh.sort(key=lambda h: h["security"])
-           return {"date": o.date, "holdings": list(map(lambda h: dict(h), hhh))}
+           holdings = sorted(list(o.holdings.values()), key=lambda h: h.security)
+           return {"date": o.date, "holdings": list(map(lambda holding: dict(holding), holdings))}
         return json.JSONEncoder.default(self, o)
 
 def read_transactions(file_name):
@@ -106,37 +101,35 @@ def read_transactions(file_name):
     return transactions
 
 def calculate_account_states(transactions: List):
-    date = None
     account_states = []
 
-    account_state = None
-
     for transaction in transactions:
-        if (transaction["date"] != date):
-            date = transaction["date"]
-            if (account_state == None):
-                account_state = AccountState(date)
-            else:
-                account_state = AccountState(date, account_state)
+
+        if (len(account_states) == 0):
+            account_state = AccountState(transaction["date"])
             account_states.append(account_state)
+        else:
+            last_account_state = account_states[-1]
+            if last_account_state.date == transaction["date"]:
+                account_state = last_account_state
+            else:
+                account_state = AccountState(transaction["date"], last_account_state)
+                account_states.append(account_state)
+
         account_state.add_transaction(transaction)
 
     return account_states
 
 def main():
     if __name__ == "__main__":
-        transactions = read_transactions(
-            configuration.dataDirectory + "/transactions.json")
-
+        transactions = read_transactions(configuration.dataDirectory + "/transactions.json")
         account_states = calculate_account_states(transactions)
 
         if (configuration.output == 'text'):
             for account_state in account_states:
                 print(account_state)
         else:
-            jsonText = json.dumps( account_states, indent=2, cls=AccountStatesJSONEncoder)
-            print(jsonText)
-
+            print (json.dumps( account_states, indent=2, cls=AccountStatesJSONEncoder))
 
 if __name__ == "__main__":
     main()
