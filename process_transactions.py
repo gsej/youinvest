@@ -4,23 +4,23 @@ import json
 
 import configuration
 
-# processes a transactions.json file (at the momement handling all of the events in the file, but later will
-# be able to stop at a particular date). 
-# creates an object showing the accumulated state of the account
+# processes a transactions.json file 
+# outputs a list of objects showing the holdings in the accounts
+# at each date on which a transaction falls
 
-# not sure if the named tuple is needed.....
 class Transaction(NamedTuple):
     date: str
     transaction: str
     description: str
-    quantity: int    
+    quantity: int
     amount_gbp: float
     reference: str
+
 
 class Holding:
     security: str
     quantity: int
-    
+
     def __init__(self, security, quantity):
         self.security = security
         self.quantity = quantity
@@ -33,24 +33,26 @@ class Holding:
         yield ('security', self.security)
         yield ('quantity', self.quantity)
 
-class AccountState():
-  #  holdings: Dict[str, Holding] = {}
 
-    def __init__(self, date, previous_account_state = None):
+class AccountState():
+
+    def __init__(self, date, previous_account_state=None):
         self.holdings: Dict[str, Holding] = {}
         self.date = date
 
         if (previous_account_state != None):
             for holding in previous_account_state.holdings.values():
-                self.holdings[holding.security] = Holding(holding.security, holding.quantity)
+                self.holdings[holding.security] = Holding(
+                    holding.security, holding.quantity)
 
     def add_transaction(self, transaction):
         holding = self.holdings.get(transaction["description"])
 
         if (holding is None):
-            self.holdings[transaction["description"]]  = Holding(transaction["description"], 0)        
+            self.holdings[transaction["description"]] = Holding(
+                transaction["description"], 0)
             holding = self.holdings.get(transaction["description"])
-        
+
         if transaction["transaction"] == "Transfer In":
             holding.quantity += transaction["quantity"]
         elif transaction["transaction"] == "Purchase":
@@ -66,33 +68,42 @@ class AccountState():
         elif transaction["transaction"] == "Removal of stock following a consolidation":
             holding.quantity -= transaction["quantity"]
         else:
-            raise Exception("transaction type "+ transaction["transaction"] + " is not handled")
+            raise Exception("transaction type " +
+                            transaction["transaction"] + " is not handled")
 
         if (holding.quantity == 0):
             del self.holdings[holding.security]
 
     def __str__(self):
         state = ""
-        
+
+        state += self.date + "\n"
+        state += "----------" + "\n"
+
         sorted_securities = sorted(self.holdings.keys())
-        
+
         for security in sorted_securities:
             if self.holdings[security].quantity != 0:
                 state = state + str(self.holdings[security]) + "\n"
-        return state 
+        state += "\n"
+        return state
+
+class AccountStatesJSONEncoder(json.JSONEncoder):
+    def default(self, o: List[AccountState]):
+        if isinstance(o, AccountState):
+           holdings = list(o.holdings.values())
+           holdings.sort(key=lambda h: h.security)
+
+           hhh = list(map(lambda h: dict(h), holdings))
+
+           #sorted_holdings = hh.sort(key=lambda h: h["security"])
+           return {"date": o.date, "holdings": list(map(lambda h: dict(h), hhh))}
+        return json.JSONEncoder.default(self, o)
 
 def read_transactions(file_name):
     with open(file_name, 'r') as json_file:
         transactions = json.load(json_file)
     return transactions
-
-def calculate_current_account_state(transactions: List):
-    # todo: remove this
-    account_state = AccountState("date")
-    for transaction in transactions:
-        account_state.add_transaction(transaction)
-    
-    return account_state
 
 def calculate_account_states(transactions: List):
     date = None
@@ -114,23 +125,18 @@ def calculate_account_states(transactions: List):
 
 def main():
     if __name__ == "__main__":
-        transactions = read_transactions(configuration.dataDirectory + "/transactions.json")
+        transactions = read_transactions(
+            configuration.dataDirectory + "/transactions.json")
 
-# todo: for each date in the list of transactions, calculate account state and add that state
-# to the output.
-
-        
-
-#        first_date = transactions[0].date
-
-        account_state = calculate_current_account_state(transactions)
+        account_states = calculate_account_states(transactions)
 
         if (configuration.output == 'text'):
-            print(account_state)
+            for account_state in account_states:
+                print(account_state)
         else:
-            non_zero_holdings = filter(lambda holding: holding.quantity > 70, account_state.holdings.values())
-            jsonText = json.dumps([dict(holding) for holding in non_zero_holdings], indent=2)
-            print (jsonText)
-        
+            jsonText = json.dumps( account_states, indent=2, cls=AccountStatesJSONEncoder)
+            print(jsonText)
+
+
 if __name__ == "__main__":
     main()
