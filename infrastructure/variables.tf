@@ -5,3 +5,7 @@ variable "location" {
 variable "resource_group_name" {
     default = "youinvest"
 } 
+
+variable "service_name" {
+    default = "youinvest"
+} 

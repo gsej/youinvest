@@ -10,6 +10,7 @@ import configuration
 # of the transactions. 
 
 class Transaction(NamedTuple):
+    account: str
     date: str
     transaction: str
     description: str
@@ -35,7 +36,7 @@ def get_transaction_rows(path):
     return transaction_rows
 
 
-def get_transactions(transaction_rows):
+def get_transactions(account, transaction_rows):
 
     def get_date(element):
         return element.date
@@ -51,7 +52,7 @@ def get_transactions(transaction_rows):
            quantity = int(row["Quantity"])
            amount_gbp = float(row["Amount (GBP)"])
            reference = row["Reference"]
-           transaction = Transaction(date, transaction, description, quantity, amount_gbp, reference)
+           transaction = Transaction(account, date, transaction, description, quantity, amount_gbp, reference)
            transactions.append(transaction)
            transactions.sort(key=get_date)
     
@@ -77,12 +78,17 @@ def write_events(transactions, output_file):
 
 
 def main():
-    csv_file_path = configuration.dataDirectory
-    transaction_rows = get_transaction_rows(csv_file_path)
-    transactions = get_transactions(transaction_rows)
 
-    output_file_name = configuration.dataDirectory + "/transactions.json"
-    write_events(transactions, output_file_name)
+    accounts = ["gsej-sipp", "gsej-isa"]
+
+    for account in accounts:
+        csv_file_path = configuration.dataDirectory + account
+        transaction_rows = get_transaction_rows(csv_file_path)
+        transactions = get_transactions(account.upper(), transaction_rows)
+
+        output_file_name = configuration.dataDirectory + account + "/transactions.json"
+
+        write_events(transactions, output_file_name)
 
 if __name__ == "__main__":
     main()

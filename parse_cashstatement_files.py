@@ -9,10 +9,11 @@ import configuration
 # of the events. 
 
 class CashStatementItem(NamedTuple):
+    account: str
     date: str
     description: str
-    receipt_amount_gbp: str # string so it doesn't get converted to float with loss of precision
-    payment_amount_gbp: str
+    receipt_amount_gbp: float
+    payment_amount_gbp: float 
 
 def get_cashstatement_rows(path):
     cashstatement_rows = []
@@ -32,7 +33,7 @@ def get_cashstatement_rows(path):
     return cashstatement_rows
 
 
-def get_cashstatement_items(cashstatement_rows):
+def get_cashstatement_items(account, cashstatement_rows):
 
     def get_date(element):
         return element.date
@@ -44,9 +45,9 @@ def get_cashstatement_items(cashstatement_rows):
         dateString = row['\ufeff"Date"']
         date = datetime.date(int(dateString[6:10]), int(dateString[3: 5]), int(dateString[0: 2])).isoformat()
         description = row["Description"]
-        receipt_amount_gbp = row["Receipt (GBP)"]
-        payment_amount_gbp = row["Payment (GBP)"]
-        cashstatement_item = CashStatementItem(date, description, receipt_amount_gbp, payment_amount_gbp)
+        receipt_amount_gbp = float(row["Receipt (GBP)"])
+        payment_amount_gbp = float(row["Payment (GBP)"])
+        cashstatement_item = CashStatementItem(account, date, description, receipt_amount_gbp, payment_amount_gbp)
         cashstatement_items.append(cashstatement_item)
         cashstatement_items.sort(key=get_date)
     
@@ -72,12 +73,16 @@ def write_events(cashstatement_items, output_file):
 
 
 def main():
-    csv_file_path = configuration.dataDirectory
-    cashstatement_rows = get_cashstatement_rows(csv_file_path)
-    cashstatement_items = get_cashstatement_items(cashstatement_rows)
 
-    output_file_name = configuration.dataDirectory + "/cashstatement_items.json"
-    write_events(cashstatement_items, output_file_name)
+    accounts = ["gsej-sipp", "gsej-isa"]
+
+    for account in accounts:
+        csv_file_path = configuration.dataDirectory + account;
+        cashstatement_rows = get_cashstatement_rows(csv_file_path)
+        cashstatement_items = get_cashstatement_items(account.upper(), cashstatement_rows)
+
+        output_file_name = configuration.dataDirectory + account + "/cashstatement_items.json"
+        write_events(cashstatement_items, output_file_name)
 
 if __name__ == "__main__":
     main()
