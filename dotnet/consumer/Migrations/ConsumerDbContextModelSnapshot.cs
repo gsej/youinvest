@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using consumer;
+using consumer.Database;
 
 #nullable disable
 
@@ -33,6 +33,10 @@ namespace consumer.Migrations
                         .IsRequired()
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
+
+                    b.Property<string>("CashStatementItemType")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<string>("Date")
                         .IsRequired()
@@ -93,12 +97,42 @@ namespace consumer.Migrations
                     b.ToTable("Dividends", (string)null);
                 });
 
+            modelBuilder.Entity("consumer.Entities.Stock", b =>
+                {
+                    b.Property<Guid>("StockId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasDefaultValueSql("newid()");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("nvarchar(50)");
+
+                    b.Property<bool>("SubjectToStampDuty")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Symbol")
+                        .IsRequired()
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.HasKey("StockId");
+
+                    b.ToTable("Stock", (string)null);
+                });
+
             modelBuilder.Entity("consumer.Entities.StockTransaction", b =>
                 {
                     b.Property<Guid>("StockTransactionId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier")
                         .HasDefaultValueSql("newid()");
+
+                    b.Property<string>("Account")
+                        .IsRequired()
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<decimal>("AmountGbp")
                         .HasPrecision(19, 5)
@@ -114,6 +148,10 @@ namespace consumer.Migrations
                         .HasMaxLength(200)
                         .HasColumnType("nvarchar(200)");
 
+                    b.Property<decimal?>("Fee")
+                        .HasPrecision(19, 5)
+                        .HasColumnType("decimal(19,5)");
+
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
@@ -122,10 +160,18 @@ namespace consumer.Migrations
                         .HasMaxLength(20)
                         .HasColumnType("nvarchar(20)");
 
+                    b.Property<decimal?>("StampDuty")
+                        .HasPrecision(19, 5)
+                        .HasColumnType("decimal(19,5)");
+
                     b.Property<string>("Transaction")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
+                    b.Property<string>("TransactionType")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.HasKey("StockTransactionId");
 

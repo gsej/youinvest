@@ -24,4 +24,7 @@ public class CashStatementItem
     
     [Precision(19, 5)]
     public decimal PaymentAmountGbp { get; set; }
+    
+    [MaxLength(100)]
+    public string CashStatementItemType { get; set; }
 }

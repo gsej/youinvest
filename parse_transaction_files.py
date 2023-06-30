@@ -79,7 +79,7 @@ def write_events(transactions, output_file):
 
 def main():
 
-    accounts = ["gsej-sipp", "gsej-isa"]
+    accounts = ["gsej-sipp", "gsej-isa", "shej-sipp"]
 
     for account in accounts:
         csv_file_path = configuration.dataDirectory + account

@@ -1,21 +1,79 @@
-﻿namespace consumer;
-
-/// <summary>
-/// Will consume messages and summarize dividends
-/// </summary>
-class Program
-{
-    private const string NamespaceConnectionString =
-        "Endpoint=sb://youinvest-servicebus-namespace.servicebus.windows.net/;SharedAccessKeyName=RootManageSharedAccessKey;SharedAccessKey=dA1+GzrFPZcGJr6wfPIfV/OPxE9lXUPgQ+ASbNCaC8c=";
-
-    private const string DatabaseConnectionString =
-        "Server=tcp:gsej-youinvest-mssqlserver.database.windows.net,1433;Initial Catalog=youinvest;Persist Security Info=False;User ID=gsej;Password=jackthehero5!;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;";
-
-    private const string QueueName = "cashstatement-items-queue";
-
-    static async Task Main(string[] args)
-    {
-        var processor = new CashStatementItemProcessor(NamespaceConnectionString, QueueName, DatabaseConnectionString);
-        await processor.Process();
-    }
-}
+﻿// using Azure.Messaging.ServiceBus;
+// using Microsoft.EntityFrameworkCore;
+// using Microsoft.Extensions.Azure;
+// using Microsoft.Extensions.Configuration;
+// using Microsoft.Extensions.DependencyInjection;
+// using Microsoft.Extensions.Hosting;
+// using common;
+// using consumer.Database;
+// using consumer.StockTransactionEnrichers;
+// using Microsoft.Azure.Amqp.Framing;
+//
+// namespace consumer;
+//
+// /// <summary>
+// /// Will consume messages and summarize dividends
+// /// </summary>
+// class Program
+// {
+//     static async Task Main(string[] args)
+//     {
+//         var host = Host.CreateDefaultBuilder(args)
+//             .ConfigureAppConfiguration((config) =>
+//             {
+//                 config.AddJsonFile("appsettings.json");
+//                 config.AddUserSecrets<Program>();
+//                 config.AddEnvironmentVariables();
+//                 config.Build();
+//             })
+//
+//             .ConfigureServices((context, services) =>
+//             {
+//                 var connectionString = context.Configuration.GetString("youinvest-db-connectionstring");
+//                 services.AddDbContext<ConsumerDbContext>(options => options.UseSqlServer(connectionString));
+//                 services.AddSingleton<IHostedService, ConsumerService>();
+//
+//                 services.AddSingleton<StockTransactionStampDutyEnricher>();
+//
+//                 var queueNames = new QueueNames
+//                 {
+//                     CashStatementItemsQueue = context.Configuration.GetString("cashstatement-items-queue"),
+//                     StockTransactionsQueue = context.Configuration.GetString("stocktransactions-queue"),
+//                 };
+//
+//                 services.AddSingleton(queueNames);
+//                 
+//                 services.AddAzureClients(clientsBuilder =>
+//                 {
+//                     clientsBuilder.AddServiceBusClient(context.Configuration.GetString("namespace-connectionstring"))
+//                         .ConfigureOptions(options =>
+//                         {
+//                             options.TransportType = ServiceBusTransportType.AmqpWebSockets;
+//                             options.RetryOptions.Delay = TimeSpan.FromMilliseconds(50);
+//                             options.RetryOptions.MaxDelay = TimeSpan.FromSeconds(5);
+//                             options.RetryOptions.MaxRetries = 3;
+//                         });
+//                 });
+//
+//                 services.AddScoped<DataLoader>();
+//
+//                 services.AddSingleton<CashStatementItemProcessor>();
+//                 services.AddSingleton<StockTransactionProcessor>();
+//
+//             })
+//             .Build();
+//         
+//         using (var scope = host.Services.CreateScope())
+//         {
+//             var services = scope.ServiceProvider;
+//
+//             var context = services.GetRequiredService<ConsumerDbContext>();
+//             await context.Database.MigrateAsync();
+//
+//             var loader = services.GetRequiredService<DataLoader>();
+//             await loader.LoadStocks();
+//         }
+//
+//         await host.RunAsync();
+//     }
+// }

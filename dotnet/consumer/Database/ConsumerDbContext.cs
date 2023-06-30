@@ -1,21 +1,7 @@
-
 using consumer.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
 
-namespace consumer;
-
-public class ConsumerDbContextFactory : IDesignTimeDbContextFactory<ConsumerDbContext>
-{
-    public ConsumerDbContext CreateDbContext(string[] args)
-    {
-        var optionsBuilder = new DbContextOptionsBuilder<ConsumerDbContext>();
-        optionsBuilder.UseSqlServer("Server=tcp:gsej-youinvest-mssqlserver.database.windows.net,1433;Initial Catalog=youinvest;Persist Security Info=False;User ID=gsej;Password=;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
-        
-
-        return new ConsumerDbContext(optionsBuilder.Options);
-    }
-}
+namespace consumer.Database;
 
 public class ConsumerDbContext : DbContext
 {
@@ -28,6 +14,7 @@ public class ConsumerDbContext : DbContext
     public DbSet<StockTransaction> StockTransactions { get; set; }
     public DbSet<Dividends> Dividends { get; set; }
     public DbSet<Contributions> Contributions { get; set; }
+    public DbSet<Stock> Stocks { get; set; }
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -52,6 +39,12 @@ public class ConsumerDbContext : DbContext
         modelBuilder.Entity<Contributions>()
             .ToTable("Contributions")
             .HasKey(d => new { d.Account, d.Year });
-
+        
+        modelBuilder.Entity<Stock>()
+            .ToTable("Stock")
+            .HasKey(s =>  s.StockId );
+        
+        modelBuilder.Entity<Stock>()
+            .Property(s => s.StockId).HasDefaultValueSql("newid()");
     }
 }

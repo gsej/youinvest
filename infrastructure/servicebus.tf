@@ -5,12 +5,22 @@ resource "azurerm_servicebus_namespace" "servicebus" {
   sku                 = "Basic"
 }
 
-resource "azurerm_servicebus_queue" "transactions-queue" {
-  name         = "transactions-queue"
+resource "azurerm_servicebus_queue" "stocktransactions-queue" {
+  name         = "stocktransactions-queue"
   namespace_id = azurerm_servicebus_namespace.servicebus.id
 }
 
 resource "azurerm_servicebus_queue" "cashstatement-items-queue" {
   name         = "cashstatement-items-queue"
+  namespace_id = azurerm_servicebus_namespace.servicebus.id
+}
+
+resource "azurerm_servicebus_queue" "stocktransactions-enriched-queue" {
+  name         = "stocktransactions-enriched-queue"
+  namespace_id = azurerm_servicebus_namespace.servicebus.id
+}
+
+resource "azurerm_servicebus_queue" "cashstatement-items-enriched-queue" {
+  name         = "cashstatement-items-enriched-queue"
   namespace_id = azurerm_servicebus_namespace.servicebus.id
 }
