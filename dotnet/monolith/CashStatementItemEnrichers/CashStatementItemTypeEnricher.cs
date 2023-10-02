@@ -1,5 +1,6 @@
 
 using System.Text.Json;
+using database.Entities;
 
 namespace monolith.CashStatementItemEnrichers;
 

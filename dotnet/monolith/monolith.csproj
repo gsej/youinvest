@@ -16,6 +16,7 @@
   <ItemGroup>
     <ProjectReference Include="..\common\common.csproj" />
     <ProjectReference Include="..\AjBell\AjBell.csproj" />
+    <ProjectReference Include="..\database\database.csproj" />
   </ItemGroup>
 
   <ItemGroup>

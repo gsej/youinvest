@@ -1,6 +1,4 @@
-
-
-using monolith.Entities;
+using database.Entities;
 
 namespace monolith.CashStatementItemEnrichers;
 
