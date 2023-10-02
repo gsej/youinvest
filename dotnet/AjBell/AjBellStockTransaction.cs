@@ -1,6 +1,7 @@
-namespace common
+namespace AjBell
 {
-    public class StockTransaction
+    // TODO: turn into record
+    public class AjBellStockTransaction
     {
         public string Account { get; set; }
         public string Date { get; set; }

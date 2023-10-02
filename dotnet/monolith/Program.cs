@@ -1,4 +1,5 @@
-﻿using database;
+﻿using AjBell;
+using database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -26,16 +27,25 @@ class Program
                     opts => opts.UseSqlServer(
                         "Server=localhost;Initial Catalog=investments;Persist Security Info=False;User ID=sa;Password=Password123!;MultipleActiveResultSets=False;Encrypt=True;Trust Server Certificate=True;Connection Timeout=30;")
                 );
+
+                services.AddTransient<IAjBellCashStatementReader, AjBellCashStatementReader>();
+                services.AddTransient<IAjBellStockTransactionReader, AjBellStockTransactionReader>();
+                services.AddTransient<CashStatementItemLoader>();
+                services.AddTransient<StockTransactionLoader>();
+
             })
             .Build();
 
 
         EnsureDatabase(builder.Services);
-     
 
-        //EnsureDatabase();
-      //  var processor = new ProducerService();
-      //  processor.Process();
+        var cashStatementItemLoader = builder.Services.GetRequiredService<CashStatementItemLoader>();
+        cashStatementItemLoader.Load();
+        
+        var stockTransactionLoader = builder.Services.GetRequiredService<StockTransactionLoader>();
+        stockTransactionLoader.Load();
+
+
 
         // var host = Host.CreateDefaultBuilder(args)
         //     .ConfigureAppConfiguration((config) =>
@@ -65,13 +75,5 @@ class Program
          var context = services.GetRequiredService<InvestmentsDbContext>();
          context.Database.EnsureCreated();
          context.Database.Migrate();
-
-    //     using (var scope = app.Services.CreateScope())
-    //     {
-    //         var services = scope.ServiceProvider;
-    //
-    //         var context = services.GetRequiredService<MyContext>();    
-    //         context.Database.Migrate();
-    //     }
      }
 }

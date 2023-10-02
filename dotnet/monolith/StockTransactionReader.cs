@@ -1,11 +1,12 @@
 using System.Text.Json;
+using AjBell;
 using common;
 
 namespace monolith;
 
 public class StockTransactionReader
 {
-    public IEnumerable<StockTransaction> Read()
+    public IEnumerable<AjBellStockTransaction> Read()
     {
         var files = new[]
         {
@@ -14,7 +15,7 @@ public class StockTransactionReader
             "/home/gsej/repos/youinvest-csv-files/gsej-isa/transactions.json"
         };
 
-        var allItems = new List<StockTransaction>();
+        var allItems = new List<AjBellStockTransaction>();
 
         var options = new JsonSerializerOptions
         {
@@ -23,7 +24,7 @@ public class StockTransactionReader
         foreach (var fileName in files)
         {
             var jsonString = File.ReadAllText(fileName);
-            var items = JsonSerializer.Deserialize<IList<StockTransaction>>(jsonString, options);
+            var items = JsonSerializer.Deserialize<IList<AjBellStockTransaction>>(jsonString, options);
 
             allItems.AddRange(items);
         }

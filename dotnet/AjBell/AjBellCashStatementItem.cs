@@ -1,4 +1,4 @@
-namespace Incoming;
+namespace AjBell;
 
 public class AjBellCashStatementItem
 {
@@ -9,5 +9,5 @@ public class AjBellCashStatementItem
     public decimal Payment_Amount_Gbp { get; set; }
    
     //TODo: what's this for?
-    public int Year => Int32.Parse(Date.Substring(0, 4));
+    //public int Year => Int32.Parse(Date.Substring(0, 4));
 }

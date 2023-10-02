@@ -23,7 +23,7 @@ public class InvestmentsDbContext : DbContext
     }
     
     public DbSet<CashStatementItem> CashStatementItems { get; set; }
-    // public DbSet<StockTransaction> StockTransactions { get; set; }
+    public DbSet<StockTransaction> StockTransactions { get; set; }
     // public DbSet<Dividends> Dividends { get; set; }
     // public DbSet<Contributions> Contributions { get; set; }
     //
@@ -36,12 +36,12 @@ public class InvestmentsDbContext : DbContext
              .ToTable("CashStatementItem")
              .HasKey(c => new { c.CashStatementItemId});
 
-        // modelBuilder.Entity<StockTransaction>()
-        //     .Property(s => s.StockTransactionId).HasDefaultValueSql("newid()");
-        //
-        // modelBuilder.Entity<StockTransaction>()
-        //     .ToTable("StockTransaction")
-        //     .HasKey(c => new { c.StockTransactionId });
+        modelBuilder.Entity<StockTransaction>()
+            .Property(s => s.StockTransactionId).HasDefaultValueSql("newid()");
+        
+        modelBuilder.Entity<StockTransaction>()
+            .ToTable("StockTransaction")
+            .HasKey(c => new { c.StockTransactionId });
         //
         // modelBuilder.Entity<Dividends>()
         //     .ToTable("Dividends")
