@@ -16,7 +16,7 @@ public class StockTransaction
     [Required]
     public string Date { get; set; }
     
-    [MaxLength(20)]
+    [MaxLength(200)]
     [Required]
     public string Transaction { get; set; }
     
@@ -24,8 +24,9 @@ public class StockTransaction
     [Required]
     public string Description { get; set; }
     
+    [Precision(19,5)]
     [Required]
-    public int Quantity { get; set; }
+    public decimal Quantity { get; set; }
     
     [Precision(19,5)]
     [Required]
@@ -44,5 +45,6 @@ public class StockTransaction
     public decimal StampDuty { get; set; }
     
     [MaxLength(100)]
+    [Required]
     public string TransactionType { get; set; }
 }

@@ -11,11 +11,6 @@ public class CashStatementItemLoader
     private readonly IAjBellCashStatementReader _ajBellCashStatementReader;
     private readonly InvestmentsDbContext _context;
 
-     private readonly JsonSerializerOptions _options = new()
-    {
-        WriteIndented = true
-    };
-
     public CashStatementItemLoader(IAjBellCashStatementReader ajBellAjBellCashStatementReader, InvestmentsDbContext context)
     {
         _ajBellCashStatementReader = ajBellAjBellCashStatementReader;

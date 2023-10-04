@@ -74,7 +74,7 @@ def write_events(cashstatement_items, output_file):
 
 def main():
 
-    accounts = ["gsej-sipp", "gsej-isa", "shej-sipp"]
+    accounts = ["gsej-sipp", "gsej-isa", "shej-sipp", "shej-isa"]
 
     for account in accounts:
         csv_file_path = configuration.dataDirectory + account;

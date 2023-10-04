@@ -4,7 +4,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-
 namespace monolith;
 
 /// <summary>
@@ -14,7 +13,7 @@ class Program
 {
     public static void Main(string[] args)
     {
-        var builder = Host.CreateDefaultBuilder(args)
+        var host = Host.CreateDefaultBuilder(args)
             //     .ConfigureAppConfiguration((config) =>
             //     {
             //         config.AddJsonFile("appsettings.json");
@@ -37,15 +36,10 @@ class Program
             .Build();
 
 
-        EnsureDatabase(builder.Services);
+        EnsureDatabase(host.Services);
 
-        var cashStatementItemLoader = builder.Services.GetRequiredService<CashStatementItemLoader>();
-        cashStatementItemLoader.Load();
-        
-        var stockTransactionLoader = builder.Services.GetRequiredService<StockTransactionLoader>();
-        stockTransactionLoader.Load();
-
-
+        var cashStatementLoader = host.Services.GetRequiredService<CashStatementItemLoader>();
+        cashStatementLoader.Load();
 
         // var host = Host.CreateDefaultBuilder(args)
         //     .ConfigureAppConfiguration((config) =>
@@ -70,10 +64,10 @@ class Program
         // await host.RunAsync();
     }
 
-     private static void EnsureDatabase(IServiceProvider services)
-     {
-         var context = services.GetRequiredService<InvestmentsDbContext>();
-         context.Database.EnsureCreated();
-         context.Database.Migrate();
-     }
+    private static void EnsureDatabase(IServiceProvider services)
+    {
+        var context = services.GetRequiredService<InvestmentsDbContext>();
+        context.Database.EnsureDeleted();
+        context.Database.Migrate();
+    }
 }

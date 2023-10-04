@@ -24,14 +24,22 @@ public class CashStatementItemTypeEnricher : ICashStatementItemEnricher
         {
             cashStatementItem.CashStatementItemType = CashStatementItemTypes.Sale;
         }
-        else if (cashStatementItem.Description.StartsWith("Div"))
+        else if (cashStatementItem.Description.StartsWith("Div") ||
+                 cashStatementItem.Description.StartsWith("DIVIDEND"))
         {
             cashStatementItem.CashStatementItemType = CashStatementItemTypes.Dividend;
         }
         else if (cashStatementItem.Description.StartsWith("Contribution") ||
-                 cashStatementItem.Description.Contains("Subscription", StringComparison.InvariantCultureIgnoreCase))
+                 cashStatementItem.Description.Contains("Subscription", StringComparison.InvariantCultureIgnoreCase) ||
+                 cashStatementItem.Description.Equals("Direct debit payment") || 
+                 cashStatementItem.Description.Equals("Debit card contribution") ||
+                 cashStatementItem.Description.Equals("Debit card payment", StringComparison.InvariantCultureIgnoreCase))
         {
             cashStatementItem.CashStatementItemType = CashStatementItemTypes.Contribution;
+        }
+        else if (cashStatementItem.Description.Equals("Tax Relief"))
+        {
+            cashStatementItem.CashStatementItemType = CashStatementItemTypes.TaxRelief;
         }
         else if (cashStatementItem.Description.Contains("Charge", StringComparison.InvariantCultureIgnoreCase))
         {
@@ -61,7 +69,7 @@ public class CashStatementItemTypeEnricher : ICashStatementItemEnricher
             
         {
             // this is an odd one
-            cashStatementItem.CashStatementItemType = CashStatementItemTypes.Balance;
+            cashStatementItem.CashStatementItemType = CashStatementItemTypes.OtherReceipt;
         }
         
         else

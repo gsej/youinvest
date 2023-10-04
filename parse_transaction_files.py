@@ -49,7 +49,7 @@ def get_transactions(account, transaction_rows):
            date = datetime.date(int(dateString[6:10]), int(dateString[3: 5]), int(dateString[0: 2])).isoformat()
            transaction = row["Transaction"]
            description = row["Description"]
-           quantity = int(row["Quantity"])
+           quantity = float(row["Quantity"])
            amount_gbp = float(row["Amount (GBP)"])
            reference = row["Reference"]
            transaction = Transaction(account, date, transaction, description, quantity, amount_gbp, reference)
@@ -79,7 +79,7 @@ def write_events(transactions, output_file):
 
 def main():
 
-    accounts = ["gsej-sipp", "gsej-isa", "shej-sipp"]
+    accounts = ["gsej-sipp", "gsej-isa", "shej-sipp", "shej-isa"]
 
     for account in accounts:
         csv_file_path = configuration.dataDirectory + account

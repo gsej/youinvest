@@ -1,5 +1,4 @@
 using System.Text.Json;
-
 namespace AjBell;
 
 public class AjBellCashStatementReader : IAjBellCashStatementReader
