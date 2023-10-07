@@ -22,6 +22,8 @@ public class InvestmentsDbContext : DbContext
         
     }
     
+    public DbSet<Account> Accounts { get; set; }
+    public DbSet<Stock> Stocks { get; set; }
     public DbSet<CashStatementItem> CashStatementItems { get; set; }
     public DbSet<StockTransaction> StockTransactions { get; set; }
     // public DbSet<Dividends> Dividends { get; set; }
@@ -29,19 +31,12 @@ public class InvestmentsDbContext : DbContext
     //
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-         modelBuilder.Entity<CashStatementItem>()
+        modelBuilder.Entity<CashStatementItem>()
              .Property(s => s.CashStatementItemId).HasDefaultValueSql("newid()");
-        
-         modelBuilder.Entity<CashStatementItem>()
-             .ToTable("CashStatementItem")
-             .HasKey(c => new { c.CashStatementItemId});
 
         modelBuilder.Entity<StockTransaction>()
             .Property(s => s.StockTransactionId).HasDefaultValueSql("newid()");
-        
-        modelBuilder.Entity<StockTransaction>()
-            .ToTable("StockTransaction")
-            .HasKey(c => new { c.StockTransactionId });
+     
         //
         // modelBuilder.Entity<Dividends>()
         //     .ToTable("Dividends")

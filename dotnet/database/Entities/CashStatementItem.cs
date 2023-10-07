@@ -1,16 +1,23 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
 namespace database.Entities;
 
+[Table(nameof(CashStatementItem))]
 public class CashStatementItem
 {
+    [Key]
     public Guid CashStatementItemId { get; set; }
     
     [MaxLength(20)]
     [Required]
-    public string Account { get; set; }
+    [ForeignKey(nameof(Account))]
+    public string AccountCode { get; set; }
+    
+    
+    public Account Account { get; set; }
     
     [MaxLength(10)]
     [Required]

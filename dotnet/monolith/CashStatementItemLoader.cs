@@ -26,7 +26,7 @@ public class CashStatementItemLoader
         {
             var cashStatementItem = new CashStatementItem
             {
-                Account = ajBellCashStatementItem.Account,
+                AccountCode = ajBellCashStatementItem.Account,
                 Date = ajBellCashStatementItem.Date,
                 Description = ajBellCashStatementItem.Description,
                 PaymentAmountGbp = ajBellCashStatementItem.Payment_Amount_Gbp,

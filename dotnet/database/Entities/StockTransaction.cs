@@ -1,16 +1,29 @@
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
 namespace database.Entities;
 
+[Table(nameof(StockTransaction))]
 public class StockTransaction
 {
+    [Key]
     public Guid StockTransactionId { get; set; }
     
     [MaxLength(20)]
     [Required]
-    public string Account { get; set; }
+    [ForeignKey(nameof(Account))]
+    public string AccountCode { get; set; }
+    
+    public Account Account { get; set; }
+    
+    [MaxLength(15)]
+    //[Required] // TODO: make required? 
+    [ForeignKey(nameof(Stock))]
+    public string? StockSymbol { get; set; }
+    
+    public Stock? Stock { get; set; }
     
     [MaxLength(10)]
     [Required]
@@ -23,6 +36,10 @@ public class StockTransaction
     [MaxLength(200)]
     [Required]
     public string Description { get; set; }
+    
+    //public string AlternateDescriptions { get; set; }
+    
+    
     
     [Precision(19,5)]
     [Required]

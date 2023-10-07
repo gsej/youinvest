@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using database;
 
@@ -11,9 +12,11 @@ using database;
 namespace database.Migrations
 {
     [DbContext(typeof(InvestmentsDbContext))]
-    partial class InvestmentsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231005201117_AccountTable")]
+    partial class AccountTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,7 +33,7 @@ namespace database.Migrations
 
                     b.HasKey("AccountCode");
 
-                    b.ToTable("Account");
+                    b.ToTable("Account", (string)null);
                 });
 
             modelBuilder.Entity("database.Entities.CashStatementItem", b =>
@@ -72,34 +75,7 @@ namespace database.Migrations
 
                     b.HasIndex("AccountCode");
 
-                    b.ToTable("CashStatementItem");
-                });
-
-            modelBuilder.Entity("database.Entities.Stock", b =>
-                {
-                    b.Property<string>("StockSymbol")
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("Notes")
-                        .HasMaxLength(500)
-                        .HasColumnType("nvarchar(500)");
-
-                    b.Property<string>("StockType")
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
-
-                    b.Property<bool>("SubjectToStampDuty")
-                        .HasColumnType("bit");
-
-                    b.HasKey("StockSymbol");
-
-                    b.ToTable("Stock");
+                    b.ToTable("CashStatementItem", (string)null);
                 });
 
             modelBuilder.Entity("database.Entities.StockTransaction", b =>
@@ -145,10 +121,6 @@ namespace database.Migrations
                         .HasPrecision(19, 5)
                         .HasColumnType("decimal(19,5)");
 
-                    b.Property<string>("StockSymbol")
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
-
                     b.Property<string>("Transaction")
                         .IsRequired()
                         .HasMaxLength(200)
@@ -163,9 +135,7 @@ namespace database.Migrations
 
                     b.HasIndex("AccountCode");
 
-                    b.HasIndex("StockSymbol");
-
-                    b.ToTable("StockTransaction");
+                    b.ToTable("StockTransaction", (string)null);
                 });
 
             modelBuilder.Entity("database.Entities.CashStatementItem", b =>
@@ -187,13 +157,7 @@ namespace database.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("database.Entities.Stock", "Stock")
-                        .WithMany()
-                        .HasForeignKey("StockSymbol");
-
                     b.Navigation("Account");
-
-                    b.Navigation("Stock");
                 });
 #pragma warning restore 612, 618
         }

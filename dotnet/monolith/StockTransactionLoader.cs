@@ -1,8 +1,6 @@
-using System.Text.Json;
 using AjBell;
 using database;
 using database.Entities;
-using monolith.Entities;
 
 namespace monolith;
 
@@ -20,6 +18,8 @@ public class StockTransactionLoader
 
     public void Load()
     {
+        var stocks = _context.Stocks.ToList();
+        
         var ajBellStockTransactions = _reader.Read().ToList();
         //   var stockTransactionTypeEnricher = new StockTransactionTypeEnricher();
 
@@ -27,7 +27,7 @@ public class StockTransactionLoader
         {
             var stockTransaction = new StockTransaction()
             {
-                Account = ajBellStockTransaction.Account,
+                AccountCode = ajBellStockTransaction.Account,
                 Date = ajBellStockTransaction.Date,
                 Transaction = ajBellStockTransaction.Transaction,
                 Description = ajBellStockTransaction.Description,
@@ -39,9 +39,18 @@ public class StockTransactionLoader
                 StampDuty = 11111
             };
 
+            var matchingStock = stocks.SingleOrDefault(s =>
+                s.Description.Equals(stockTransaction.Description, StringComparison.InvariantCultureIgnoreCase));
+
+            if (matchingStock != null)
+            {
+                // Move to enricher
+                stockTransaction.Stock = matchingStock;
+            }
+
             //       stockTransactionTypeEnricher.Enrich(stockTransaction);
 
-                 _context.StockTransactions.Add(stockTransaction);
+            _context.StockTransactions.Add(stockTransaction);
             _context.SaveChanges();
 
         }

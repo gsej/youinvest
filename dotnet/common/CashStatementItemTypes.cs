@@ -1,4 +1,4 @@
-namespace monolith.CashStatementItemEnrichers;
+namespace common;
 
 public static class CashStatementItemTypes
 {
