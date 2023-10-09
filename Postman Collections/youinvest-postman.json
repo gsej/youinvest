@@ -1,0 +1,202 @@
+{
+	"info": {
+		"_postman_id": "b81920b1-c5c5-4cda-89cb-81ad3d7e877f",
+		"name": "youinvest",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "accounts",
+			"item": [
+				{
+					"name": "/accounts",
+					"id": "2b3997b2-3b8d-41c7-afcf-5e5350ed00da",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "text/plain"
+							}
+						],
+						"url": "{{baseUrl}}/accounts"
+					},
+					"response": [
+						{
+							"id": "6147b1cd-19c5-40e1-9bde-2f79d9ad4f33",
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"url": "{{baseUrl}}/accounts"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "{\n  \"accounts\": [\n    {\n      \"accountCode\": \"<string>\"\n    },\n    {\n      \"accountCode\": \"<string>\"\n    }\n  ]\n}"
+						}
+					]
+				}
+			],
+			"id": "bda2bb1d-4dea-4fee-b4d4-947d309e2839"
+		},
+		{
+			"name": "WeatherForecast",
+			"item": [
+				{
+					"name": "Get Weather Forecast",
+					"id": "a510d93a-e848-4557-bbe9-ef003050529a",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Accept",
+								"value": "text/plain"
+							}
+						],
+						"url": "{{baseUrl}}/WeatherForecast"
+					},
+					"response": [
+						{
+							"id": "61f05844-ad25-40fb-aa79-064ddf0ac91f",
+							"name": "Success",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"url": "{{baseUrl}}/WeatherForecast"
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"responseTime": null,
+							"body": "[\n  {\n    \"date\": \"<date>\",\n    \"temperatureC\": \"<integer>\",\n    \"temperatureF\": \"<integer>\",\n    \"summary\": \"<string>\"\n  },\n  {\n    \"date\": \"<date>\",\n    \"temperatureC\": \"<integer>\",\n    \"temperatureF\": \"<integer>\",\n    \"summary\": \"<string>\"\n  }\n]"
+						}
+					]
+				}
+			],
+			"id": "578ffada-df36-49b9-9044-8f11eff89699"
+		},
+		{
+			"name": "account",
+			"item": [
+				{
+					"name": "summary",
+					"item": [
+						{
+							"name": "/account/summary",
+							"id": "9991af79-5896-4d42-9fc3-95460ae7fea3",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"accountCodes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"date\": \"<string>\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{baseUrl}}/account/summary"
+							},
+							"response": [
+								{
+									"id": "0f8eefd4-cf31-4494-9b17-db4e120f78cf",
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"accountCodes\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"date\": \"<string>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": "{{baseUrl}}/account/summary"
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"responseTime": null,
+									"body": "{\n  \"holdings\": [\n    {\n      \"stockSymbol\": \"<string>\",\n      \"quantity\": \"<double>\"\n    },\n    {\n      \"stockSymbol\": \"<string>\",\n      \"quantity\": \"<double>\"\n    }\n  ],\n  \"cashBalance\": \"<double>\"\n}"
+								}
+							]
+						}
+					],
+					"id": "efbcafbf-1bc2-49f7-b6f5-11a3af5586a0"
+				}
+			],
+			"id": "55693ae7-700e-4849-90c7-243f440190cd"
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "/"
+		}
+	]
+}
