@@ -1,0 +1,5 @@
+<mat-selection-list formControlName="selectAccounts">
+  <mat-list-option *ngFor="let account of accounts" [value]="account">
+    {{ account.accountCode}}
+  </mat-list-option>
+</mat-selection-list>

@@ -9,12 +9,6 @@ public record struct SummaryRequest(string[] AccountCodes, string Date);
 
 public record Holding(string StockSymbol, decimal Quantity);
 
-public class SummaryResult
-{
-    public IList<Holding> Holdings { get; set; }
-    public decimal CashBalance { get; set; }
-}
-
 public interface ISummaryQueryHandler
 {
     Task<SummaryResult> Handle(SummaryRequest request);

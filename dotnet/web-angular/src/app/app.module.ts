@@ -1,16 +1,31 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations'; 
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatListModule } from '@angular/material/list';
+
+
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AccountSelectorComponent } from './account-selector/account-selector.component';
+import { AccountSummaryComponent } from './account-summary/account-summary.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AccountSelectorComponent,
+    AccountSummaryComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatCheckboxModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]
