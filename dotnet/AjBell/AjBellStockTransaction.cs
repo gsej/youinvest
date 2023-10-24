@@ -1,14 +1,13 @@
 namespace AjBell
 {
-    // TODO: turn into record
-    public class AjBellStockTransaction
-    {
-        public string Account { get; set; }
-        public string Date { get; set; }
-        public string Transaction { get; set; } // this has a limited set of values
-        public string Description { get; set; } // this includes the stock name. needs to be translated to a symbol
-        public decimal Quantity { get; set; }
-        public decimal Amount_Gbp { get; set; }
-        public string Reference { get; set; }
-    }
+    public record AjBellStockTransaction(
+        string Account,
+        string Date,
+        string Transaction,
+        string Description,
+        decimal Quantity,
+        // ReSharper disable once InconsistentNaming
+        decimal Amount_Gbp,
+        string Reference
+    );
 }

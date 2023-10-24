@@ -1,6 +1,7 @@
 using AjBell;
 using database;
 using database.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace loader;
 
@@ -18,7 +19,10 @@ public class StockTransactionLoader
 
     public void Load()
     {
-        var stocks = _context.Stocks.ToList();
+        var stocks = _context
+            .Stocks
+            .Include(stock => stock.Aliases)
+            .ToList();
         
         var ajBellStockTransactions = _reader.Read().ToList();
         //   var stockTransactionTypeEnricher = new StockTransactionTypeEnricher();
@@ -40,7 +44,9 @@ public class StockTransactionLoader
             };
 
             var matchingStock = stocks.SingleOrDefault(s =>
-                s.Description.Equals(stockTransaction.Description, StringComparison.InvariantCultureIgnoreCase));
+                s.Description.Equals(stockTransaction.Description, StringComparison.InvariantCultureIgnoreCase) ||
+                s.Aliases.Any(alias =>
+                    alias.Description.Equals(stockTransaction.Description, StringComparison.InvariantCultureIgnoreCase)));
 
             if (matchingStock != null)
             {

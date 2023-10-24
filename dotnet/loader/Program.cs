@@ -25,13 +25,12 @@ class Program
 
                 services.AddTransient<IAjBellCashStatementReader, AjBellCashStatementReader>();
                 services.AddTransient<CashStatementItemLoader>();
-                
+
                 services.AddTransient<IAjBellStockTransactionReader, AjBellStockTransactionReader>();
                 services.AddTransient<StockTransactionLoader>();
-
             })
             .Build();
-        
+
         EnsureDatabase(host.Services);
 
         var cashStatementLoader = host.Services.GetRequiredService<CashStatementItemLoader>();
@@ -113,6 +112,13 @@ class Program
             {
                 StockSymbol = "CPI.L",
                 Description = "Capita PLC",
+                Aliases = new List<StockAlias>
+                {
+                    new()
+                    {
+                        Description = "CAPITA PLC ORD GBP0.02066666(NP-24/05/"
+                    }
+                },
                 StockType = StockTypes.Share
             },
             //new Stock { Description = "CAPITA PLC ORD GBP0.02066666(NP-24/05/" },
@@ -122,12 +128,25 @@ class Program
                 Description = "CML Microsystems PLC",
                 StockType = StockTypes.Share
             },
-            //new Stock { Description = "DB X-TRACKERS MSCI WLD TRN IDX UCITS ETF1" },
+            new()
+            {
+                StockSymbol = "XWND.L",
+                Description = "DB X-TRACKERS MSCI WLD TRN IDX UCITS ETF1",
+                StockType = StockTypes.Etf,
+                Notes = "aka db x-trackers MSCI World Information Technology TRN Index UCITS ETF, Acquired by DBK.GE"
+            },
             // new Stock { Description = "DIRECT LINE INS GR ORD GBP0.10" },
             new()
             {
                 StockSymbol = "DLG.L",
                 Description = "Direct Line Insurance Group PLC",
+                Aliases = new List<StockAlias>
+                {
+                    new ()
+                    {
+                        Description = "DIRECT LINE INS GR ORD GBP0.10"
+                    }
+                },
                 StockType = StockTypes.Share
             },
             new()
@@ -136,14 +155,25 @@ class Program
                 Description = "Ecora Resources PLC",
                 StockType = StockTypes.Share
             },
-            //new Stock { Description = "EI GROUP PLC ORD GBP0.025" },
+            new()
+            {
+                StockSymbol = "EIG.L",
+                Description = "EI GROUP PLC ORD GBP0.025",
+                StockType = StockTypes.Share,
+                Notes = "formerly Enterprise Inns"
+            },
             new()
             {
                 StockSymbol = "SONG.L",
                 Description = "Hipgnosis Songs Ord",
                 StockType = StockTypes.Share
             },
-            // new Stock { Description = "HM TREASURY GILT 0.375% (22/10/26)" },
+            new()
+            {
+                StockSymbol = "T26A",
+                Description = "HM TREASURY GILT 0.375% (22/10/26)",
+                StockType = StockTypes.Gilt
+            },
             new()
             {
                 StockSymbol = "HSV.L",
@@ -156,25 +186,37 @@ class Program
                 Description = "Ibstock PLC",
                 StockType = StockTypes.Share
             },
-            new () {
+            new()
+            {
                 StockSymbol = "IDB.L",
-            Description = "International Distributions Services PLC",
-            StockType = StockTypes.Share
+                Description = "International Distributions Services PLC",
+                StockType = StockTypes.Share
             },
             new()
             {
                 StockSymbol = "SLXX.L",
                 Description = "iShares Core £ Corp Bond ETF GBP Dist",
                 StockType = StockTypes.Etf
-            },
+            }, 
             new()
             {
                 StockSymbol = "ISF.L",
                 Description = "iShares Core FTSE 100 ETF GBP Dist",
                 StockType = StockTypes.Etf
             },
-            // new Stock { Description = "iShares Core MSCI World ETF USD Acc GBP" },
-            // new Stock { Description = "iShares Core UK Gilts ETF GBP Dist" },
+            new()
+            {
+                StockSymbol = "SWDA.L",
+                Isin = "IE00B4L5Y983",
+                Description = "iShares Core MSCI World ETF USD Acc GBP",
+                StockType = StockTypes.Etf
+            },
+             new()
+             {
+                 StockSymbol = "IGLT.L",
+                 Description = "iShares Core UK Gilts ETF GBP Dist",
+                 StockType = StockTypes.Etf
+             },
             new()
             {
                 StockSymbol = "MIDD.L",
@@ -198,12 +240,20 @@ class Program
             {
                 StockSymbol = "MICROFOCUS", // not the correct ticker
                 Description = "MICRO FOCUS INTL ORD GBP0.10",
+                Aliases = new List<StockAlias>
+                {
+                    new()
+                    {
+                        Description = "MICRO FOCUS INT. PROVISIONAL CAP RET SHS"
+                    }
+                },
                 StockType = StockTypes.Share
             },
             new()
             {
                 StockSymbol = "MCG.L",
-                Description = "Mobico Group PLC", Notes = "Formerly National Express",
+                Description = "Mobico Group PLC",
+                Notes = "Formerly National Express",
                 StockType = StockTypes.Share
             },
             new()
@@ -218,11 +268,17 @@ class Program
                 Description = "National Express Group PLC",
                 StockType = StockTypes.Share
             },
-            //new () { StockSymbol = "NG.L", Description = "NATIONAL GRID ORD GBP0.113953" },
             new()
             {
                 StockSymbol = "NG.L",
                 Description = "National Grid PLC",
+                Aliases = new List<StockAlias>
+                {
+                    new()
+                    {
+                        Description = "NATIONAL GRID ORD GBP0.113953"
+                    }
+                },
                 StockType = StockTypes.Share
             },
             new()
@@ -249,7 +305,12 @@ class Program
                 Description = "Treatt PLC",
                 StockType = StockTypes.Share
             },
-            // new () { Description = "UK(GOVT OF) 2% SNR 07/09/2025 GBP1000" },
+            new ()
+            {
+                StockSymbol = "T25",
+                Description = "UK(GOVT OF) 2% SNR 07/09/2025 GBP1000",
+                StockType = StockTypes.Gilt
+            },
             new()
             {
                 StockSymbol = "VECP.L",
@@ -261,12 +322,18 @@ class Program
                 StockSymbol = "VMID.L",
                 Description = "Vanguard FTSE 250 UCITS ETF",
                 StockType = StockTypes.Etf
-
             },
             new()
             {
                 StockSymbol = "VWRP.L",
                 Description = "Vanguard FTSE All-World ETF USD Acc GBP",
+                Aliases = new List<StockAlias>
+                {
+                    new()
+                    {
+                        Description = "Vanguard FTSE All-World UCITS ETF" // is this correct?
+                    }
+                },
                 StockType = StockTypes.Etf
             },
             // new () {
@@ -297,7 +364,6 @@ class Program
                 StockSymbol = "VFEM.L",
                 Description = "Vanguard FTSE Emerg Markets ETF $Dis GBP",
                 StockType = StockTypes.Etf
-
             },
             new()
             {
@@ -345,14 +411,20 @@ class Program
             {
                 StockSymbol = "XMWD.L",
                 Description = "Xtrackers MSCI World Swap ETF 1C USD",
+                Aliases = new List<StockAlias>
+                {
+                  new ()
+                  {
+                      Description = "XTRACKERS MSCI WORLD SWAP UCITS ETF 1" // is this the same thing??
+                  }  
+                },
                 StockType = StockTypes.Etf
-            },
+            }
             // new()
             // {
             //     StockSymbol = "",
             //     Description = "XTRACKERS MSCI WORLD SWAP UCITS ETF 1"
             // },
-
         };
 
         context.Stocks.AddRange(stocks);
