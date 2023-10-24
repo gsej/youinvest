@@ -52,6 +52,15 @@ app.UseCors("AllowAllOrigins");
 
 // app.UseAuthorization();
 
+app.Use(async (context, next) =>
+{
+    if (context.Request.Path.Equals("/"))
+    {
+        context.Response.Redirect("/swagger/index.html");
+    }
+    await next();
+});
+
 app.MapControllers();
 
 app.Run();

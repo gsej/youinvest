@@ -1,6 +1,7 @@
 using AjBell;
 using database;
 using database.Entities;
+using loader.StockTransactionEnrichers;
 using Microsoft.EntityFrameworkCore;
 
 namespace loader;
@@ -22,10 +23,11 @@ public class StockTransactionLoader
         var stocks = _context
             .Stocks
             .Include(stock => stock.Aliases)
+            .Include(stock => stock.AlternativeSymbols)
             .ToList();
         
         var ajBellStockTransactions = _reader.Read().ToList();
-        //   var stockTransactionTypeEnricher = new StockTransactionTypeEnricher();
+        var stockTransactionTypeEnricher = new StockTransactionTypeEnricher();
 
         foreach (var ajBellStockTransaction in ajBellStockTransactions)
         {
@@ -38,9 +40,8 @@ public class StockTransactionLoader
                 Quantity = ajBellStockTransaction.Quantity,
                 AmountGbp = ajBellStockTransaction.Amount_Gbp,
                 Reference = ajBellStockTransaction.Reference,
-                TransactionType = "???",
-                Fee = 999,
-                StampDuty = 11111
+                Fee = 999, //todo: enrich
+                StampDuty = 11111 // todo: enrich
             };
 
             var matchingStock = stocks.SingleOrDefault(s =>
@@ -54,7 +55,7 @@ public class StockTransactionLoader
                 stockTransaction.Stock = matchingStock;
             }
 
-            //       stockTransactionTypeEnricher.Enrich(stockTransaction);
+            stockTransactionTypeEnricher.Enrich(stockTransaction);
 
             _context.StockTransactions.Add(stockTransaction);
             _context.SaveChanges();

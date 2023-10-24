@@ -142,7 +142,7 @@ class Program
                 Description = "Direct Line Insurance Group PLC",
                 Aliases = new List<StockAlias>
                 {
-                    new ()
+                    new()
                     {
                         Description = "DIRECT LINE INS GR ORD GBP0.10"
                     }
@@ -197,7 +197,7 @@ class Program
                 StockSymbol = "SLXX.L",
                 Description = "iShares Core £ Corp Bond ETF GBP Dist",
                 StockType = StockTypes.Etf
-            }, 
+            },
             new()
             {
                 StockSymbol = "ISF.L",
@@ -211,12 +211,12 @@ class Program
                 Description = "iShares Core MSCI World ETF USD Acc GBP",
                 StockType = StockTypes.Etf
             },
-             new()
-             {
-                 StockSymbol = "IGLT.L",
-                 Description = "iShares Core UK Gilts ETF GBP Dist",
-                 StockType = StockTypes.Etf
-             },
+            new()
+            {
+                StockSymbol = "IGLT.L",
+                Description = "iShares Core UK Gilts ETF GBP Dist",
+                StockType = StockTypes.Etf
+            },
             new()
             {
                 StockSymbol = "MIDD.L",
@@ -251,22 +251,30 @@ class Program
             },
             new()
             {
-                StockSymbol = "MCG.L",
-                Description = "Mobico Group PLC",
-                Notes = "Formerly National Express",
-                StockType = StockTypes.Share
-            },
-            new()
-            {
                 StockSymbol = "MRW.L",
                 Description = "MORRISON(W)SUPRMKT ORD GBP0.10",
                 StockType = StockTypes.Share
             },
             new()
             {
-                StockSymbol = "NEX.L",
-                Description = "National Express Group PLC",
-                StockType = StockTypes.Share
+                StockSymbol = "MCG.L",
+                Description = "Mobico Group PLC",
+                Notes = "Formerly National Express",
+                StockType = StockTypes.Share,
+                Aliases = new List<StockAlias>
+                {
+                    new()
+                    {
+                        Description = "National Express Group PLC"
+                    }
+                },
+                AlternativeSymbols = new List<AlternativeSymbol>
+                {
+                    new()
+                    {
+                        Alternative = "NEX.L"
+                    }
+                },
             },
             new()
             {
@@ -305,7 +313,7 @@ class Program
                 Description = "Treatt PLC",
                 StockType = StockTypes.Share
             },
-            new ()
+            new()
             {
                 StockSymbol = "T25",
                 Description = "UK(GOVT OF) 2% SNR 07/09/2025 GBP1000",
@@ -413,10 +421,10 @@ class Program
                 Description = "Xtrackers MSCI World Swap ETF 1C USD",
                 Aliases = new List<StockAlias>
                 {
-                  new ()
-                  {
-                      Description = "XTRACKERS MSCI WORLD SWAP UCITS ETF 1" // is this the same thing??
-                  }  
+                    new()
+                    {
+                        Description = "XTRACKERS MSCI WORLD SWAP UCITS ETF 1" // is this the same thing??
+                    }
                 },
                 StockType = StockTypes.Etf
             }

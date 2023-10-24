@@ -20,6 +20,8 @@ public class Stock
     [Required]
     public string Description { get; set; }
 
+    public IEnumerable<AlternativeSymbol> AlternativeSymbols { get; set; } = new List<AlternativeSymbol>();// encapsulate this
+    
     public IEnumerable<StockAlias> Aliases { get; set; } = new List<StockAlias>();// encapsulate this
     
     [MaxLength(15)]

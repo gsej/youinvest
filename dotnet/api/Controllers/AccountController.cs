@@ -16,7 +16,7 @@ public class ExampleSchemaFilter : ISchemaFilter
             schema.Example = new OpenApiObject()
             {
                 ["accountCodes"] = new OpenApiArray { new OpenApiString("GSEJ-SIPP")},
-                ["date"] = new OpenApiString("2020-10-30"),
+                ["date"] = new OpenApiString("2024-10-30"),
             };
         }
     }
