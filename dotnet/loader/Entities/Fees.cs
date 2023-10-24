@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace monolith.Entities;
+namespace loader.Entities;
 
 public class Fees
 {

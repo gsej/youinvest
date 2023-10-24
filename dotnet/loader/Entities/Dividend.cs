@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace monolith.Entities;
+namespace loader.Entities;
 
-public class Contributions
+public class Dividends
 {
     [MaxLength(20)]
     [Required]
@@ -11,6 +11,6 @@ public class Contributions
     [Required]
     public int Year { get; set; }
     
- //   [Precision(19, 5)]
+  //  [Precision(19, 5)]
     public decimal TotalReceived { get; set; }
 }

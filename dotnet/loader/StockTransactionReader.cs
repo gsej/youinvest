@@ -1,8 +1,7 @@
 using System.Text.Json;
 using AjBell;
-using common;
 
-namespace monolith;
+namespace loader;
 
 public class StockTransactionReader
 {

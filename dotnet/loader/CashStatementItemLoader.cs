@@ -1,10 +1,9 @@
-using System.Text.Json;
 using AjBell;
 using database;
 using database.Entities;
-using monolith.CashStatementItemEnrichers;
+using loader.CashStatementItemEnrichers;
 
-namespace monolith;
+namespace loader;
 
 public class CashStatementItemLoader
 {

@@ -6,22 +6,16 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace monolith;
+namespace loader;
 
 /// <summary>
-/// Will consume messages and summarize dividends
+/// loads various data files and adds to the database.
 /// </summary>
 class Program
 {
     public static void Main(string[] args)
     {
         var host = Host.CreateDefaultBuilder(args)
-            //     .ConfigureAppConfiguration((config) =>
-            //     {
-            //         config.AddJsonFile("appsettings.json");
-            //         config.AddUserSecrets<Program>();
-            //         config.AddEnvironmentVariables();
-            //         config.Build();
             .ConfigureServices((context, services) =>
             {
                 services.AddDbContext<InvestmentsDbContext>(
@@ -30,14 +24,14 @@ class Program
                 );
 
                 services.AddTransient<IAjBellCashStatementReader, AjBellCashStatementReader>();
-                services.AddTransient<IAjBellStockTransactionReader, AjBellStockTransactionReader>();
                 services.AddTransient<CashStatementItemLoader>();
+                
+                services.AddTransient<IAjBellStockTransactionReader, AjBellStockTransactionReader>();
                 services.AddTransient<StockTransactionLoader>();
 
             })
             .Build();
-
-
+        
         EnsureDatabase(host.Services);
 
         var cashStatementLoader = host.Services.GetRequiredService<CashStatementItemLoader>();
@@ -69,6 +63,11 @@ class Program
         // await host.RunAsync();
     }
 
+    /// <summary>
+    /// Creates database (using migrations)
+    /// Loads some static data (e.g. stocks)
+    /// </summary>
+    /// <param name="services"></param>
     private static void EnsureDatabase(IServiceProvider services)
     {
         var context = services.GetRequiredService<InvestmentsDbContext>();

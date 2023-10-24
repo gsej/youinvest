@@ -2,7 +2,7 @@ using AjBell;
 using database;
 using database.Entities;
 
-namespace monolith;
+namespace loader;
 
 public class StockTransactionLoader
 {

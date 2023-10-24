@@ -1,7 +1,6 @@
 using database.Entities;
-using monolith.Entities;
 
-namespace monolith.StockTransactionEnrichers;
+namespace loader.StockTransactionEnrichers;
 
 public interface IStockTransactionEnricher
 {

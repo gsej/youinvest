@@ -1,12 +1,9 @@
-
 using System.Text.Json;
 using common;
 using database.Entities;
-using database.ValueTypes;
 
-namespace monolith.CashStatementItemEnrichers;
+namespace loader.CashStatementItemEnrichers;
 
-using monolith.Entities;
 public class CashStatementItemTypeEnricher : ICashStatementItemEnricher
 {
     public void Enrich(CashStatementItem cashStatementItem)

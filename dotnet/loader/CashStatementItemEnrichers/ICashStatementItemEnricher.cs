@@ -1,6 +1,6 @@
 using database.Entities;
 
-namespace monolith.CashStatementItemEnrichers;
+namespace loader.CashStatementItemEnrichers;
 
 public interface ICashStatementItemEnricher
 {
