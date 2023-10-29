@@ -1,3 +1,23 @@
 <p>account-summary works!</p>
 
-<app-account-selector></app-account-selector>
+<div *ngIf="accountSummary">
+
+  <table>
+    <tbody>
+      <tr *ngFor="let holding of accountSummary.holdings">
+        <td>
+          {{ holding.stockSymbol }}
+        </td>
+        <td>
+          {{ holding.stockDescription }}
+        </td>
+        <td>
+          {{ holding.quantity }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  Cash Balance: £{{ accountSummary.cashBalance}}
+
+</div>

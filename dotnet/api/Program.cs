@@ -51,15 +51,12 @@ app.UseHttpsRedirection();
 app.UseCors("AllowAllOrigins");
 
 // app.UseAuthorization();
-
-app.Use(async (context, next) =>
+app.MapGet("/", http =>
 {
-    if (context.Request.Path.Equals("/"))
-    {
-        context.Response.Redirect("/swagger/index.html");
-    }
-    await next();
+    http.Response.Redirect("/swagger/index.html", false);
+    return Task.CompletedTask;
 });
+
 
 app.MapControllers();
 

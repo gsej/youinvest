@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { AccountSummary } from '../AccountSummary';
 
 @Component({
   selector: 'app-account-summary',
@@ -7,4 +8,7 @@ import { Component } from '@angular/core';
 })
 export class AccountSummaryComponent {
 
+
+  @Input()
+  public accountSummary: AccountSummary | null = null;
 }

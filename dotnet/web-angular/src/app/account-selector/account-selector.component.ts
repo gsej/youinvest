@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Account } from '../account';
 import { AccountsService } from '../accounts.service';
 
@@ -7,24 +7,19 @@ import { AccountsService } from '../accounts.service';
   templateUrl: './account-selector.component.html',
   styleUrls: ['./account-selector.component.scss']
 })
-export class AccountSelectorComponent implements OnInit{
+export class AccountSelectorComponent {
+
+  @Input()
+  public accounts: Account[] = []
+
+  @Output()
+  public accountsChanged: EventEmitter<string[]> = new EventEmitter<string[]>();
 
 
-  public accounts: Account[] = [
-    { accountCode: "ACC1" },
-    { accountCode: "ACC2" }
-  ]
+  accountsSelected(selection: any) {
 
-  constructor(private accountsService: AccountsService) {
-
-  }
-
-
-  ngOnInit(): void {
-
-    this.accountsService.getAccounts().subscribe( accounts => {
-      this.accounts = accounts;
-    })
+    const accountCodes = selection.map((item: any) => item.value.accountCode);
+    this.accountsChanged.next(accountCodes);
   }
 
 }
