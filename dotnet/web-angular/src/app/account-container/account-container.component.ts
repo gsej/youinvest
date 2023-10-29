@@ -26,7 +26,11 @@ export class AccountContainerComponent implements OnInit {
 
   accountsSelected(accountCodes: string[]) {
     this.accountsService.getAccountSummary(accountCodes)
-      .subscribe(summary => this.accountSummary = summary);
+      .subscribe(summary => {
+        this.accountSummary = summary
+
+        this.accountSummary.holdings.push( { stockSymbol: "£", stockDescription: "Cash Balance", quantity: this.accountSummary.cashBalance})
+      });
   }
 
 }
