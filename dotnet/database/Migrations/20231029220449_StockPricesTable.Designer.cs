@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using database;
 
@@ -11,9 +12,11 @@ using database;
 namespace database.Migrations
 {
     [DbContext(typeof(InvestmentsDbContext))]
-    partial class InvestmentsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231029220449_StockPricesTable")]
+    partial class StockPricesTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -142,29 +145,23 @@ namespace database.Migrations
 
             modelBuilder.Entity("database.Entities.StockPrice", b =>
                 {
-                    b.Property<Guid>("StockPriceId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<string>("StockSymbol")
+                        .HasMaxLength(15)
+                        .HasColumnType("nvarchar(15)");
+
+                    b.Property<string>("Date")
+                        .HasMaxLength(10)
+                        .HasColumnType("nvarchar(10)");
 
                     b.Property<string>("Currency")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Date")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
                     b.Property<decimal>("Price")
                         .HasPrecision(19, 5)
                         .HasColumnType("decimal(19,5)");
 
-                    b.Property<string>("StockSymbol")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
-
-                    b.HasKey("StockPriceId");
+                    b.HasKey("StockSymbol", "Date");
 
                     b.ToTable("StockPrice");
                 });
@@ -261,6 +258,17 @@ namespace database.Migrations
                 {
                     b.HasOne("database.Entities.Stock", "Stock")
                         .WithMany("Aliases")
+                        .HasForeignKey("StockSymbol")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Stock");
+                });
+
+            modelBuilder.Entity("database.Entities.StockPrice", b =>
+                {
+                    b.HasOne("database.Entities.Stock", "Stock")
+                        .WithMany()
                         .HasForeignKey("StockSymbol")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();

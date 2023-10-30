@@ -13,7 +13,7 @@ namespace loader;
 /// </summary>
 class Program
 {
-    public static void Main(string[] args)
+    public static async Task Main(string[] args)
     {
         var host = Host.CreateDefaultBuilder(args)
             .ConfigureServices((context, services) =>
@@ -28,6 +28,9 @@ class Program
 
                 services.AddTransient<IAjBellStockTransactionReader, AjBellStockTransactionReader>();
                 services.AddTransient<StockTransactionLoader>();
+                
+                services.AddTransient<IStockPriceReader, StockPriceReader>();
+                services.AddTransient<StockPriceLoader>();
             })
             .Build();
 
@@ -37,7 +40,10 @@ class Program
         cashStatementLoader.Load();
 
         var stockTransactionLoader = host.Services.GetRequiredService<StockTransactionLoader>();
-        stockTransactionLoader.Load();
+        await stockTransactionLoader.Load();
+        
+        var stockPriceLoader = host.Services.GetRequiredService<StockPriceLoader>();
+        await stockPriceLoader.Load();
 
         // var host = Host.CreateDefaultBuilder(args)
         //     .ConfigureAppConfiguration((config) =>
@@ -188,7 +194,7 @@ class Program
             },
             new()
             {
-                StockSymbol = "IDB.L",
+                StockSymbol = "IDS.L",
                 Description = "International Distributions Services PLC",
                 StockType = StockTypes.Share
             },

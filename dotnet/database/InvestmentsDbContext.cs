@@ -19,16 +19,14 @@ public class InvestmentsDbContext : DbContext
 {
     public InvestmentsDbContext(  DbContextOptions<InvestmentsDbContext> options) : base(options)
     {
-        
     }
     
     public DbSet<Account> Accounts { get; set; }
     public DbSet<Stock> Stocks { get; set; }
     public DbSet<CashStatementItem> CashStatementItems { get; set; }
     public DbSet<StockTransaction> StockTransactions { get; set; }
-    // public DbSet<Dividends> Dividends { get; set; }
-    // public DbSet<Contributions> Contributions { get; set; }
-    //
+    public DbSet<StockPrice> StockPrices { get; set; }
+    
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<CashStatementItem>()

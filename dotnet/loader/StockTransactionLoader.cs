@@ -18,13 +18,13 @@ public class StockTransactionLoader
         _context = context;
     }
 
-    public void Load()
+    public async Task Load()
     {
-        var stocks = _context
+        var stocks = await _context
             .Stocks
             .Include(stock => stock.Aliases)
             .Include(stock => stock.AlternativeSymbols)
-            .ToList();
+            .ToListAsync();
         
         var ajBellStockTransactions = _reader.Read().ToList();
         var stockTransactionTypeEnricher = new StockTransactionTypeEnricher();
