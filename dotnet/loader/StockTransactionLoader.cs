@@ -31,29 +31,23 @@ public class StockTransactionLoader
 
         foreach (var ajBellStockTransaction in ajBellStockTransactions)
         {
-            var stockTransaction = new StockTransaction()
-            {
-                AccountCode = ajBellStockTransaction.Account,
-                Date = ajBellStockTransaction.Date,
-                Transaction = ajBellStockTransaction.Transaction,
-                Description = ajBellStockTransaction.Description,
-                Quantity = ajBellStockTransaction.Quantity,
-                AmountGbp = ajBellStockTransaction.Amount_Gbp,
-                Reference = ajBellStockTransaction.Reference,
-                Fee = 999, //todo: enrich
-                StampDuty = 11111 // todo: enrich
-            };
-
             var matchingStock = stocks.SingleOrDefault(s =>
-                s.Description.Equals(stockTransaction.Description, StringComparison.InvariantCultureIgnoreCase) ||
+                s.Description.Equals(ajBellStockTransaction.Description, StringComparison.InvariantCultureIgnoreCase) ||
                 s.Aliases.Any(alias =>
-                    alias.Description.Equals(stockTransaction.Description, StringComparison.InvariantCultureIgnoreCase)));
+                    alias.Description.Equals(ajBellStockTransaction.Description, StringComparison.InvariantCultureIgnoreCase)));
 
-            if (matchingStock != null)
-            {
-                // Move to enricher
-                stockTransaction.Stock = matchingStock;
-            }
+            var stockTransaction = new StockTransaction(
+                accountCode: ajBellStockTransaction.Account,
+                date: ajBellStockTransaction.Date,
+                transaction: ajBellStockTransaction.Transaction,
+                description: ajBellStockTransaction.Description,
+                quantity: ajBellStockTransaction.Quantity,
+                amountGbp: ajBellStockTransaction.Amount_Gbp,
+                reference: ajBellStockTransaction.Reference,
+                fee: 999, //todo: enrich
+                stampDuty: 11111, // todo: enrich,
+                stock: matchingStock
+            );
 
             stockTransactionTypeEnricher.Enrich(stockTransaction);
 

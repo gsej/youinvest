@@ -3,18 +3,18 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace database.Entities;
 
-[Table("StockAlias")]
-public class StockAlias
+[Table("AlternativeSymbol")]
+public class AlternativeSymbol
 {
-    public StockAlias(string description) 
+    public AlternativeSymbol(string alternative)
     {
-        Description = description;
+        Alternative = alternative;
     }
 
-    [MaxLength(50)]
+    [MaxLength(15)]
     [Required]
     [Key]
-    public string Description { get; set; }
+    public string Alternative { get; set; }
     
     [Required]
     public Stock? Stock { get; set; }

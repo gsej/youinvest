@@ -38,6 +38,16 @@ public class StockPriceLoader
                 continue;
             }
 
+            if (stockPriceDto == null)
+            {
+                Console.WriteLine("kjshkj");
+            }
+
+            if (stockPriceDto.StockSymbol == null)
+            {
+                Console.WriteLine("kjshkj");
+            }
+
             if (stockPriceDto.StockSymbol.Equals("GB00BNNGP668.SG"))
             {
                 continue;

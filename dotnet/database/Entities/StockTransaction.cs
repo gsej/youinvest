@@ -8,42 +8,60 @@ namespace database.Entities;
 [Table(nameof(StockTransaction))]
 public class StockTransaction
 {
+    public StockTransaction(string accountCode,
+        string date,
+        string transaction,
+        string description,
+        decimal quantity,
+        decimal amountGbp,
+        string reference,
+        decimal fee,
+        decimal stampDuty,
+        Stock? stock)
+    {
+        AccountCode = accountCode;
+        Date = date;
+        Transaction = transaction;
+        Description = description;
+        Quantity = quantity;
+        AmountGbp = amountGbp;
+        Reference = reference;
+        Fee = fee;
+        StampDuty = stampDuty;
+        Stock = stock;
+    }
+
     [Key]
-    public Guid StockTransactionId { get; set; }
+    public Guid StockTransactionId { get; }
     
     [MaxLength(20)]
     [Required]
     [ForeignKey(nameof(Account))]
-    public string AccountCode { get; set; }
+    public string AccountCode { get; }
     
-    public Account Account { get; set; }
+    public Account? Account { get; }
     
     [MaxLength(15)]
-    //[Required] // TODO: make required? 
     [ForeignKey(nameof(Stock))]
-    public string? StockSymbol { get; set; }
+    public string? StockSymbol { get;}
     
-    public Stock? Stock { get; set; }
+    public Stock? Stock { get;}
     
     [MaxLength(10)]
     [Required]
-    public string Date { get; set; }
+    public string Date { get; }
     
     [MaxLength(200)]
     [Required]
-    public string Transaction { get; set; }
+    public string Transaction { get; }
     
     [MaxLength(200)]
     [Required]
-    public string Description { get; set; }
-    
-    //public string AlternateDescriptions { get; set; }
-    
-    
+    public string Description { get; }
     
     [Precision(19,5)]
     [Required]
-    public decimal Quantity { get; set; }
+    public decimal Quantity { get; }
     
     [Precision(19,5)]
     [Required]

@@ -23,14 +23,12 @@ public class CashStatementItemLoader
         
         foreach (var ajBellCashStatementItem in ajBellCashStatementItems)
         {
-            var cashStatementItem = new CashStatementItem
-            {
-                AccountCode = ajBellCashStatementItem.Account,
-                Date = ajBellCashStatementItem.Date,
-                Description = ajBellCashStatementItem.Description,
-                PaymentAmountGbp = ajBellCashStatementItem.Payment_Amount_Gbp,
-                ReceiptAmountGbp = ajBellCashStatementItem.Receipt_Amount_Gbp
-            };
+            var cashStatementItem = new CashStatementItem(
+                accountCode: ajBellCashStatementItem.Account,
+                date: ajBellCashStatementItem.Date, 
+                description: ajBellCashStatementItem.Description,
+                paymentAmountGbp: ajBellCashStatementItem.Payment_Amount_Gbp,
+                receiptAmountGbp: ajBellCashStatementItem.Receipt_Amount_Gbp);
 
             cashStatementItemTypeEnricher.Enrich(cashStatementItem);
 

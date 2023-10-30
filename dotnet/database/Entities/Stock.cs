@@ -8,6 +8,38 @@ namespace database.Entities;
 [Table("Stock")]
 public class Stock
 {
+    public Stock(string stockSymbol, string description, string stockType, IEnumerable<StockAlias> aliases)
+    {
+        StockSymbol = stockSymbol;
+        Description = description;
+        Aliases = aliases;
+        StockType = stockType;
+    }
+
+    public Stock(string stockSymbol, string description, string stockType, string? notes = null)
+    {
+        StockSymbol = stockSymbol;
+        Description = description;
+        StockType = stockType;
+        Notes = notes;
+    }
+
+    public Stock(
+        string stockSymbol, 
+        string description, 
+        string stockType, 
+        string? notes,
+        IEnumerable<StockAlias> aliases, 
+        IEnumerable<AlternativeSymbol> alternativeSymbols)
+    {
+        StockSymbol = stockSymbol;
+        Description = description;
+        Notes = notes;
+        StockType = stockType;
+        Aliases = aliases;
+        AlternativeSymbols = alternativeSymbols;
+    }
+
     [MaxLength(15)]
     [Required]
     [Key]

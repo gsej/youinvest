@@ -13,7 +13,9 @@ public class StockPriceReader : IStockPriceReader
     {
         var files = new[]
         {
-            "/home/gsej/repos/share-prices/price-fetcher/legacy-prices/prices-from-csv.json"
+            "/home/gsej/repos/share-prices/price-fetcher/legacy-prices/prices-from-csv.json",
+            "/home/gsej/repos/share-prices/price-fetcher/legacy-prices/prices-ci.json",
+            "/home/gsej/repos/share-prices/price-fetcher/legacy-prices/prices-pi.json",
         };
 
         var allItems = new List<StockPrice>();

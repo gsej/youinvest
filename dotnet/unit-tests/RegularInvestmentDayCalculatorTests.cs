@@ -1,5 +1,4 @@
 using common;
-using consumer.StockTransactionEnrichers;
 using FluentAssertions;
 
 namespace unit_tests;

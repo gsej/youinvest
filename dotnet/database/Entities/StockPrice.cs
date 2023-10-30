@@ -6,10 +6,8 @@ using Microsoft.EntityFrameworkCore;
 namespace database.Entities;
 
 [Table("StockPrice")]
-//[PrimaryKey(nameof(StockSymbol), nameof(Date))]
 public class StockPrice
 {
-    
     [Key]
     public Guid StockPriceId { get; set; }
     
