@@ -46,13 +46,13 @@ public class StockTransactionLoader
                 reference: ajBellStockTransaction.Reference,
                 fee: 999, //todo: enrich
                 stampDuty: 11111, // todo: enrich,
-                stock: matchingStock
-            );
+                stockSymbol: matchingStock != null ? matchingStock.StockSymbol : null // is this possible to be null?
+             );
 
             stockTransactionTypeEnricher.Enrich(stockTransaction);
 
             _context.StockTransactions.Add(stockTransaction);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
 
         }
     }

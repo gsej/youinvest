@@ -73,13 +73,8 @@ public class StockPriceLoader
             // }
             if (existing == null)
             {
-                var stockPrice = new StockPrice()
-                {
-                  StockSymbol = symbol,
-                    Date = stockPriceDto.Date,
-                    Price = price,
-                    Currency = "GBP"
-                };
+                var stockPrice = new StockPrice(stockSymbol: symbol, date: stockPriceDto.Date, price: price,
+                    currency: "GBP");
 
                 _context.StockPrices.Add(stockPrice);
                 await _context.SaveChangesAsync();

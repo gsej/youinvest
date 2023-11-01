@@ -6,7 +6,7 @@ namespace api.QueryHandlers;
 
 public record struct SummaryRequest(string[] AccountCodes, string Date);
 
-public record Holding(string StockSymbol, string StockDescription, decimal Quantity);
+public record Holding(string StockSymbol, string StockDescription, decimal Quantity, StockPriceResult? StockPrice);
 
 public class SummaryQueryHandler : ISummaryQueryHandler
 {
@@ -55,10 +55,11 @@ public class SummaryQueryHandler : ISummaryQueryHandler
 
             if (totalHeld != 0)
             {
-                holdings.Add(new Holding(stock.StockSymbol, stock.Description, totalHeld));
+                var stockPrice = await _context.GetStockPrice(stock.StockSymbol, request.Date);
+                holdings.Add(new Holding(stock.StockSymbol, stock.Description, totalHeld, stockPrice));
             }
         }
-        
-        return new SummaryResult { Holdings = holdings, CashBalance = cashBalance };
+
+        return new SummaryResult(Holdings: holdings, CashBalance: cashBalance);
     }
 }

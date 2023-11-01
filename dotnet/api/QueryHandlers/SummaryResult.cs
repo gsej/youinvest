@@ -1,7 +1,3 @@
 namespace api.QueryHandlers;
 
-public class SummaryResult
-{
-    public IList<Holding> Holdings { get; set; }
-    public decimal CashBalance { get; set; }
-}
+public record SummaryResult(IList<Holding> Holdings, decimal CashBalance);

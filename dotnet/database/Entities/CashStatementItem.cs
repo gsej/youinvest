@@ -29,22 +29,22 @@ public class CashStatementItem
     [ForeignKey(nameof(Account))]
     public string AccountCode { get; }
     
-    public Account? Account { get; }
+    public Account? Account { get; private set; }
     
     [MaxLength(10)]
     [Required]
-    public string Date { get; }
+    public string Date { get; private set; }
     
     [MaxLength(200)]
     [Required]
-    public string Description { get;  }
+    public string Description { get; private set; }
     
     [Precision(19, 5)]
-    public decimal ReceiptAmountGbp { get; }
+    public decimal ReceiptAmountGbp { get; private set; }
     
     [Precision(19, 5)]
-    public decimal PaymentAmountGbp { get; }
+    public decimal PaymentAmountGbp { get; private set; }
     
     [MaxLength(100)]
-    public string CashStatementItemType { get; set; }
+    public string CashStatementItemType { get;  set; }
 }

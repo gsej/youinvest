@@ -36,7 +36,7 @@ class Program
         EnsureDatabase(host.Services);
 
         var cashStatementLoader = host.Services.GetRequiredService<CashStatementItemLoader>();
-        cashStatementLoader.Load();
+        await cashStatementLoader.Load();
 
         var stockTransactionLoader = host.Services.GetRequiredService<StockTransactionLoader>();
         await stockTransactionLoader.Load();

@@ -8,7 +8,8 @@ namespace database.Entities;
 [Table(nameof(StockTransaction))]
 public class StockTransaction
 {
-    public StockTransaction(string accountCode,
+    public StockTransaction(
+        string accountCode,
         string date,
         string transaction,
         string description,
@@ -17,7 +18,7 @@ public class StockTransaction
         string reference,
         decimal fee,
         decimal stampDuty,
-        Stock? stock)
+        string stockSymbol)
     {
         AccountCode = accountCode;
         Date = date;
@@ -28,40 +29,40 @@ public class StockTransaction
         Reference = reference;
         Fee = fee;
         StampDuty = stampDuty;
-        Stock = stock;
+        StockSymbol = stockSymbol;
     }
-
+ 
     [Key]
     public Guid StockTransactionId { get; }
     
     [MaxLength(20)]
     [Required]
     [ForeignKey(nameof(Account))]
-    public string AccountCode { get; }
+    public string AccountCode { get; private set; }
     
-    public Account? Account { get; }
+    public Account? Account { get; private set; }
     
     [MaxLength(15)]
     [ForeignKey(nameof(Stock))]
-    public string? StockSymbol { get;}
+    public string? StockSymbol { get; private set; }
     
-    public Stock? Stock { get;}
+    public Stock? Stock { get; private set; }
     
     [MaxLength(10)]
     [Required]
-    public string Date { get; }
+    public string Date { get; private set; }
     
     [MaxLength(200)]
     [Required]
-    public string Transaction { get; }
+    public string Transaction { get; private set; }
     
     [MaxLength(200)]
     [Required]
-    public string Description { get; }
+    public string Description { get; private set; }
     
     [Precision(19,5)]
     [Required]
-    public decimal Quantity { get; }
+    public decimal Quantity { get; private set; }
     
     [Precision(19,5)]
     [Required]

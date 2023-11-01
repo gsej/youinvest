@@ -16,7 +16,7 @@ public class CashStatementItemLoader
         _context = context;
     }
 
-    public void Load()
+    public async Task Load()
     {
         var ajBellCashStatementItems = _ajBellCashStatementReader.Read().ToList();
         var cashStatementItemTypeEnricher = new CashStatementItemTypeEnricher();
@@ -33,7 +33,7 @@ public class CashStatementItemLoader
             cashStatementItemTypeEnricher.Enrich(cashStatementItem);
 
             _context.CashStatementItems.Add(cashStatementItem);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
             
         }
     }

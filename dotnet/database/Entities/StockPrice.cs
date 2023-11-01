@@ -8,6 +8,14 @@ namespace database.Entities;
 [Table("StockPrice")]
 public class StockPrice
 {
+    public StockPrice(string stockSymbol, string date, decimal price, string currency)
+    {
+        StockSymbol = stockSymbol;
+        Date = date;
+        Price = price;
+        Currency = currency;
+    }
+
     [Key]
     public Guid StockPriceId { get; set; }
     
