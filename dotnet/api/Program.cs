@@ -1,5 +1,6 @@
 
 using api.Controllers;
+using api.Correlation;
 using api.QueryHandlers;
 using database;
 using Microsoft.EntityFrameworkCore;
@@ -35,6 +36,9 @@ builder.Services.AddDbContext<InvestmentsDbContext>(
 builder.Services.AddScoped<ISummaryQueryHandler, SummaryQueryHandler>();
 builder.Services.AddScoped<IAccountQueryHandler, AccountQueryHandler>();
 
+
+builder.Services.AddScoped<ICorrelationIdGenerator, CorrelationIdGenerator>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -59,5 +63,7 @@ app.MapGet("/", http =>
 
 
 app.MapControllers();
+
+app.UseMiddleware<CorrelationIdMiddleware>();
 
 app.Run();
