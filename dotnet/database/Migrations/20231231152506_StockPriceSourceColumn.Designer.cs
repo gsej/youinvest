@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using database;
 
@@ -11,9 +12,11 @@ using database;
 namespace database.Migrations
 {
     [DbContext(typeof(InvestmentsDbContext))]
-    partial class InvestmentsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231231152506_StockPriceSourceColumn")]
+    partial class StockPriceSourceColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -90,32 +93,6 @@ namespace database.Migrations
                     b.HasIndex("AccountCode");
 
                     b.ToTable("CashStatementItem");
-                });
-
-            modelBuilder.Entity("database.Entities.KnownValue", b =>
-                {
-                    b.Property<Guid>("KnownValueId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasDefaultValueSql("newid()");
-
-                    b.Property<string>("AccountCode")
-                        .IsRequired()
-                        .HasMaxLength(15)
-                        .HasColumnType("nvarchar(15)");
-
-                    b.Property<string>("Date")
-                        .IsRequired()
-                        .HasMaxLength(10)
-                        .HasColumnType("nvarchar(10)");
-
-                    b.Property<decimal>("TotalValue")
-                        .HasPrecision(19, 5)
-                        .HasColumnType("decimal(19,5)");
-
-                    b.HasKey("KnownValueId");
-
-                    b.ToTable("KnownValue");
                 });
 
             modelBuilder.Entity("database.Entities.Stock", b =>

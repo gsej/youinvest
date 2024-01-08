@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { AccountSummary } from '../AccountSummary';
+import { AccountSummary } from '../models/accountSummary';
 
 @Component({
   selector: 'app-account-summary',
@@ -8,7 +8,7 @@ import { AccountSummary } from '../AccountSummary';
 })
 export class AccountSummaryComponent {
 
-  public displayedColumns = ['stockSymbol', 'stockDescription', 'quantity'];
+  public displayedColumns = ['stockSymbol', 'stockDescription', 'quantity', 'price', 'currency', 'ageInDays'];
 
   @Input()
   public accountSummary: AccountSummary | null = null;

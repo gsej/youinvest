@@ -74,7 +74,7 @@ def write_events(cashstatement_items, output_file):
 
 def main():
 
-    accounts = ["gsej-sipp", "gsej-isa", "shej-sipp", "shej-isa"]
+    accounts = ["gsej-sipp", "gsej-isa", "shej-sipp", "shej-isa", "tkej-sipp", "amej-sipp"]
    # accounts = ["shej-isa"]
 
     for account in accounts:

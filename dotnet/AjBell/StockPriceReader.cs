@@ -8,12 +8,16 @@ public class StockPriceReader : IStockPriceReader
     {
         PropertyNameCaseInsensitive = true
     };
+
+    public IEnumerable<StockPrice> Read(string fileName)
+    {
+        return ReadFile(fileName);
+    }
     
     public IEnumerable<StockPrice> Read()
     {
         var files = new[]
         {
-            "/home/gsej/repos/share-prices/price-fetcher/legacy-prices/prices-from-csv.json",
             "/home/gsej/repos/share-prices/price-fetcher/legacy-prices/prices-ci.json",
             "/home/gsej/repos/share-prices/price-fetcher/legacy-prices/prices-pi.json",
         };
@@ -22,15 +26,17 @@ public class StockPriceReader : IStockPriceReader
         
         foreach (var fileName in files)
         {
-            var jsonString = File.ReadAllText(fileName);
-            var items = JsonSerializer.Deserialize<IList<StockPrice>>(jsonString, _options);
-
-            if (items != null)
-            {
-                allItems.AddRange(items);
-            }
+            var items = ReadFile(fileName);
+            allItems.AddRange(items);
         }
 
         return allItems;
+    }
+
+    private IList<StockPrice> ReadFile(string fileName)
+    {
+        var jsonString = File.ReadAllText(fileName);
+        var items = JsonSerializer.Deserialize<IList<StockPrice>>(jsonString, _options);
+        return items;
     }
 }

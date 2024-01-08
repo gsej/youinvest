@@ -2,11 +2,7 @@ using common;
 using database;
 using Microsoft.EntityFrameworkCore;
 
-namespace api.QueryHandlers;
-
-public record struct SummaryRequest(string[] AccountCodes, string Date);
-
-public record Holding(string StockSymbol, string StockDescription, decimal Quantity, StockPriceResult? StockPrice);
+namespace api.QueryHandlers.Summary;
 
 public class SummaryQueryHandler : ISummaryQueryHandler
 {
@@ -42,7 +38,7 @@ public class SummaryQueryHandler : ISummaryQueryHandler
         foreach (var group in stockTransactions)
         {
             var stock = group.Key;
-
+            
             var stocksAdded = group.Where(st =>
                     st.TransactionType is StockTransactionTypes.Purchase or StockTransactionTypes.TransferIn or StockTransactionTypes.Receipt)
                 .Sum(st => st.Quantity);
@@ -53,11 +49,15 @@ public class SummaryQueryHandler : ISummaryQueryHandler
 
             var totalHeld = stocksAdded - stocksRemoved;
 
-            if (totalHeld != 0)
+            // TODO: sometimes stock is null. need to find out why and enforce integrity.
+            
+            
+            if (totalHeld != 0 && stock != null)
             {
                 var stockPrice = await _context.GetStockPrice(stock.StockSymbol, request.Date);
                 holdings.Add(new Holding(stock.StockSymbol, stock.Description, totalHeld, stockPrice));
             }
+         
         }
 
         return new SummaryResult(Holdings: holdings, CashBalance: cashBalance);

@@ -27,22 +27,31 @@ class Program
 
                 services.AddTransient<IAjBellStockTransactionReader, AjBellStockTransactionReader>();
                 services.AddTransient<StockTransactionLoader>();
-                
+
                 services.AddTransient<IStockPriceReader, StockPriceReader>();
                 services.AddTransient<StockPriceLoader>();
+                
+                services.AddTransient<IKnownValueReader, KnownValueReader>();
+                services.AddTransient<KnownValueLoader>();
             })
             .Build();
 
         EnsureDatabase(host.Services);
 
-        var cashStatementLoader = host.Services.GetRequiredService<CashStatementItemLoader>();
-        await cashStatementLoader.Load();
+         var cashStatementLoader = host.Services.GetRequiredService<CashStatementItemLoader>();
+         await cashStatementLoader.Load();
+      
+         var stockTransactionLoader = host.Services.GetRequiredService<StockTransactionLoader>();
+         await stockTransactionLoader.Load();
 
-        var stockTransactionLoader = host.Services.GetRequiredService<StockTransactionLoader>();
-        await stockTransactionLoader.Load();
-        
         var stockPriceLoader = host.Services.GetRequiredService<StockPriceLoader>();
-        await stockPriceLoader.Load();
+        
+        await stockPriceLoader.LoadFile("/home/gsej/repos/share-prices/price-fetcher/legacy-prices/prices-ci.json", "LegacyCI");
+        await stockPriceLoader.LoadFile("/home/gsej/repos/share-prices/price-fetcher/legacy-prices/prices-pi.json", "LegacyPI");
+        await stockPriceLoader.LoadFile("/home/gsej/repos/share-prices/historical/gold.json", "Download", "GOLD");
+
+        var knownBalancesLoader = host.Services.GetRequiredService<KnownValueLoader>();
+        await knownBalancesLoader.LoadFile("/home/gsej/repos/youinvest-csv-files/known-values/known-values.json");
     }
 
     /// <summary>

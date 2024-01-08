@@ -1,4 +1,6 @@
 using api.QueryHandlers;
+using api.QueryHandlers.History;
+using api.QueryHandlers.Summary;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
@@ -37,14 +39,17 @@ public class AccountController : ControllerBase
     private readonly ILogger<AccountController> _logger;
     private readonly ISummaryQueryHandler _summaryQueryHandler;
     private readonly IAccountQueryHandler _accountQueryHandler;
+    private readonly IHistoryQueryHandler _historyQueryHandler;
 
     public AccountController(ILogger<AccountController> logger, 
         ISummaryQueryHandler summaryQueryHandler,
-        IAccountQueryHandler accountQueryHandler)
+        IAccountQueryHandler accountQueryHandler, 
+        IHistoryQueryHandler historyQueryHandler)
     {
         _logger = logger;
         _summaryQueryHandler = summaryQueryHandler;
         _accountQueryHandler = accountQueryHandler;
+        _historyQueryHandler = historyQueryHandler;
     }
 
     [HttpGet("/accounts")]
@@ -58,5 +63,11 @@ public class AccountController : ControllerBase
     public async Task<SummaryResult> GetSummary([FromBody] SummaryRequest request)
     {
         return await _summaryQueryHandler.Handle(request);
+    }
+    
+    [HttpPost("/account/history")]
+    public async Task<HistoryResult> GetHistory([FromBody] HistoryRequest request)
+    {
+        return await _historyQueryHandler.Handle(request);
     }
 }

@@ -32,7 +32,8 @@ public class CashStatementItemTypeEnricher : ICashStatementItemEnricher
                  cashStatementItem.Description.Contains("Subscription", StringComparison.InvariantCultureIgnoreCase) ||
                  cashStatementItem.Description.Equals("Direct debit payment") || 
                  cashStatementItem.Description.Equals("Debit card contribution") ||
-                 cashStatementItem.Description.Equals("Debit card payment", StringComparison.InvariantCultureIgnoreCase))
+                 cashStatementItem.Description.Equals("Debit card payment", StringComparison.InvariantCultureIgnoreCase) ||
+                 cashStatementItem.Description.Equals("Transfer From SIPP Cash Account", StringComparison.InvariantCultureIgnoreCase))
         {
             cashStatementItem.CashStatementItemType = CashStatementItemTypes.Contribution;
         }

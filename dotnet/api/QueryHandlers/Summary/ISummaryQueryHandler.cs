@@ -1,4 +1,4 @@
-namespace api.QueryHandlers;
+namespace api.QueryHandlers.Summary;
 
 public interface ISummaryQueryHandler
 {

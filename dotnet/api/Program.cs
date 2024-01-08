@@ -2,6 +2,8 @@
 using api.Controllers;
 using api.Correlation;
 using api.QueryHandlers;
+using api.QueryHandlers.History;
+using api.QueryHandlers.Summary;
 using database;
 using Microsoft.EntityFrameworkCore;
 
@@ -35,7 +37,7 @@ builder.Services.AddDbContext<InvestmentsDbContext>(
 
 builder.Services.AddScoped<ISummaryQueryHandler, SummaryQueryHandler>();
 builder.Services.AddScoped<IAccountQueryHandler, AccountQueryHandler>();
-
+builder.Services.AddScoped<IHistoryQueryHandler, HistoryQueryHandler>();
 
 builder.Services.AddScoped<ICorrelationIdGenerator, CorrelationIdGenerator>();
 
