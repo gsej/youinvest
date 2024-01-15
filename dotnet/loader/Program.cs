@@ -48,7 +48,7 @@ class Program
         
         await stockPriceLoader.LoadFile("/home/gsej/repos/share-prices/price-fetcher/legacy-prices/prices-ci.json", "LegacyCI");
         await stockPriceLoader.LoadFile("/home/gsej/repos/share-prices/price-fetcher/legacy-prices/prices-pi.json", "LegacyPI");
-        await stockPriceLoader.LoadFile("/home/gsej/repos/share-prices/historical/gold.json", "Download", "GOLD");
+//        await stockPriceLoader.LoadFile("/home/gsej/repos/share-prices/historical/gold.json", "Download", "GOLD");
 
         var knownBalancesLoader = host.Services.GetRequiredService<KnownValueLoader>();
         await knownBalancesLoader.LoadFile("/home/gsej/repos/youinvest-csv-files/known-values/known-values.json");

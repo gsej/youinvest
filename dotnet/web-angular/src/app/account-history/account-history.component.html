@@ -1,5 +1,7 @@
 <div *ngIf="accountHistory">
 
+  <h2>Account History</h2>
+
   <mat-table [dataSource]="accountHistory.knownValues">
 
     <ng-container matColumnDef="date">

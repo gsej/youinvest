@@ -16,6 +16,7 @@ public static class StaticData
             new(accountCode: "AMEJ-SIPP"),
             new(accountCode: "TKEJ-SIPP"),
             new(accountCode: "GOLD"),
+            new(accountCode: "GSEJ-ISA-VIRGIN"),
         };
         return accounts;
     }

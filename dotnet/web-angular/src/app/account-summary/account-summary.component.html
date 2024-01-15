@@ -1,5 +1,6 @@
 <div *ngIf="accountSummary">
 
+  <h2>Account Summary - Current Holdings</h2>
   <mat-table [dataSource]="accountSummary.holdings">
 
     <ng-container matColumnDef="stockSymbol">
@@ -19,17 +20,17 @@
 
     <ng-container matColumnDef="price">
       <mat-header-cell *matHeaderCellDef> Price </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.stockPrice.price}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.stockPrice?.price}} </mat-cell>
     </ng-container>>
 
     <ng-container matColumnDef="currency">
       <mat-header-cell *matHeaderCellDef> Currency </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.stockPrice.currency}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.stockPrice?.currency}} </mat-cell>
     </ng-container>>
 
     <ng-container matColumnDef="ageInDays">
       <mat-header-cell *matHeaderCellDef> Price Age (days) </mat-header-cell>
-      <mat-cell *matCellDef="let element"> {{element.stockPrice.ageInDays}} </mat-cell>
+      <mat-cell *matCellDef="let element"> {{element.stockPrice?.ageInDays}} </mat-cell>
     </ng-container>>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>

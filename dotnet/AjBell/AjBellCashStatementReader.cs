@@ -18,6 +18,8 @@ public class AjBellCashStatementReader : IAjBellCashStatementReader
             "/home/gsej/repos/youinvest-csv-files/shej-isa/cashstatement_items.json",
             "/home/gsej/repos/youinvest-csv-files/amej-sipp/cashstatement_items.json",
             "/home/gsej/repos/youinvest-csv-files/tkej-sipp/cashstatement_items.json",
+            "/home/gsej/repos/youinvest-csv-files/gsej-isa-virgin/cashstatement_items.json",
+            "/home/gsej/repos/youinvest-csv-files/gold/cashstatement_items.json",
         };
 
         var allItems = new List<AjBellCashStatementItem>();

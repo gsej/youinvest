@@ -29,6 +29,7 @@ public class CashStatementItemTypeEnricher : ICashStatementItemEnricher
             cashStatementItem.CashStatementItemType = CashStatementItemTypes.Dividend;
         }
         else if (cashStatementItem.Description.StartsWith("Contribution") ||
+                 cashStatementItem.Description.Contains("Deposit", StringComparison.InvariantCultureIgnoreCase) ||
                  cashStatementItem.Description.Contains("Subscription", StringComparison.InvariantCultureIgnoreCase) ||
                  cashStatementItem.Description.Equals("Direct debit payment") || 
                  cashStatementItem.Description.Equals("Debit card contribution") ||

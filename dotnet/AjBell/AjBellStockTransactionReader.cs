@@ -16,7 +16,8 @@ public class AjBellStockTransactionReader : IAjBellStockTransactionReader
             "/home/gsej/repos/youinvest-csv-files/gsej-sipp/transactions.json",
             "/home/gsej/repos/youinvest-csv-files/shej-sipp/transactions.json",
             "/home/gsej/repos/youinvest-csv-files/gsej-isa/transactions.json",
-            "/home/gsej/repos/youinvest-csv-files/shej-isa/transactions.json"
+            "/home/gsej/repos/youinvest-csv-files/shej-isa/transactions.json",
+            "/home/gsej/repos/youinvest-csv-files/gold/transactions.json"
         };
 
         var allItems = new List<AjBellStockTransaction>();
