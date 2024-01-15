@@ -25,7 +25,7 @@ public static class StaticData
         var stocks = new List<Stock>
         {
             new(stockSymbol: "AZN.L", description: "AstraZeneca PLC", stockType: StockTypes.Share),
-            new(stockSymbol: "GOLD", description: "Gold (GBP Per oz)", stockType: StockTypes.Commodity),
+            new(stockSymbol: "GOLD", description: "Gold", stockType: StockTypes.Commodity),
             new(stockSymbol: "BP.L", description: "BP PLC", stockType: StockTypes.Share),
             new(stockSymbol: "BLND.L", description: "British Land Co PLC", StockTypes.Share),
             new(stockSymbol: "BVIC.L", description: "Britvic PLC", stockType: StockTypes.Share),

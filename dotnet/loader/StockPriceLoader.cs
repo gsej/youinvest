@@ -20,7 +20,6 @@ public class StockPriceLoader
     public async Task LoadFile(string fileName, string source, string defaultStockSymbol = null)
     {
         // This is to load a file of stock prices, and attribute those prices to a source.
-
         var stocks = _context
             .Stocks
             .Include(stock => stock.Aliases)
@@ -73,6 +72,16 @@ public class StockPriceLoader
                 _context.StockPrices.Add(stockPrice);
                 await _context.SaveChangesAsync();
             }
+        }
+    }
+
+    public async Task LoadFiles(string directoryName, string source, string defaultStockSymbol = null)
+    {
+        var fileNames = Directory.GetFiles(directoryName, "*.json");
+
+        foreach (var fileName in fileNames)
+        {
+            await LoadFile(fileName, source, defaultStockSymbol);
         }
     }
 

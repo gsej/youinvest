@@ -1,21 +1,9 @@
 
-Have the process transactions script output a list of objects like this:
 
-[
-{
-	date: 2011-01-01,
-	holdings: [
-// holdings here....
-	]
-}
-]
-
-... however.... there will be multiple transacftions for some dates. They need to be grouped to produce a single output
+Validate dates on the way in
 
 
+Gold price is in oz not grams
 
+Import gilt prices
 
-and add some tests....
-
-
-create webui to display portfolio by date...
