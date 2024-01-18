@@ -20,98 +20,95 @@ public static class StaticData
         };
         return accounts;
     }
+
     public static IList<Stock> Stocks()
     {
         var stocks = new List<Stock>
         {
-            new(stockSymbol: "AZN.L", description: "AstraZeneca PLC", stockType: StockTypes.Share),
-            new(stockSymbol: "GOLD", description: "Gold", stockType: StockTypes.Commodity),
-            new(stockSymbol: "BP.L", description: "BP PLC", stockType: StockTypes.Share),
-            new(stockSymbol: "BLND.L", description: "British Land Co PLC", StockTypes.Share),
-            new(stockSymbol: "BVIC.L", description: "Britvic PLC", stockType: StockTypes.Share),
-            new(stockSymbol: "CPI.L", description: "Capita PLC", stockType: StockTypes.Share, aliases: new List<StockAlias>
-            {
-                new(description: "CAPITA PLC ORD GBP0.02066666(NP-24/05/")
-            }),
-            new(stockSymbol: "CML.L", description: "CML Microsystems PLC", stockType: StockTypes.Share),
-            new(stockSymbol: "XWND.L", description: "DB X-TRACKERS MSCI WLD TRN IDX UCITS ETF1",
-                stockType: StockTypes.Etf,
-                notes: "aka db x-trackers MSCI World Information Technology TRN Index UCITS ETF, Acquired by DBK.GE"),
-            new(stockSymbol: "DLG.L", description: "Direct Line Insurance Group PLC", stockType: StockTypes.Share, aliases: new List<StockAlias>
-            {
-                new(description: "DIRECT LINE INS GR ORD GBP0.10")
-            }),
-            new(stockSymbol: "ECOR.L", description: "Ecora Resources PLC", stockType: StockTypes.Share),
-            new(stockSymbol: "EIG.L", description: "EI GROUP PLC ORD GBP0.025", stockType: StockTypes.Share,
-                notes: "formerly Enterprise Inns"),
-            new(stockSymbol: "SONG.L", description: "Hipgnosis Songs Ord", stockType: StockTypes.Share),
-            new(stockSymbol: "T26A", description: "HM TREASURY GILT 0.375% (22/10/26)", stockType: StockTypes.Gilt),
-            new(stockSymbol: "HSV.L", description: "HOMESERVE ORD GBP0.025", stockType: StockTypes.Share),
-            new(stockSymbol: "IBST.L", description: "Ibstock PLC", stockType: StockTypes.Share),
-            new(stockSymbol: "IDS.L", description: "International Distributions Services PLC",
-                stockType: StockTypes.Share),
-            new(stockSymbol: "SLXX.L", description: "iShares Core £ Corp Bond ETF GBP Dist", stockType: StockTypes.Etf),
-            new(stockSymbol: "ISF.L", description: "iShares Core FTSE 100 ETF GBP Dist", stockType: StockTypes.Etf),
-            new(stockSymbol:"SWDA.L", description: "iShares Core MSCI World ETF USD Acc GBP", stockType: StockTypes.Etf)
-            {
-                Isin = "IE00B4L5Y983",
-            },
-            new(stockSymbol: "IGLT.L", description: "iShares Core UK Gilts ETF GBP Dist", stockType: StockTypes.Etf),
-            new(stockSymbol: "MIDD.L", description: "iShares FTSE 250 ETF GBP Dist", stockType: StockTypes.Etf),
-            new(stockSymbol: "IUKP.L", description: "iShares UK Property ETF GBP Dist", stockType: StockTypes.Etf),
-            new(stockSymbol: "GILS.L", description: "Lyxor Core UK Govt Bd (DR) ETF D GBP", stockType: StockTypes.Etf),
-            new(stockSymbol: "MICROFOCUS", // not the correct ticker
-                description: "MICRO FOCUS INTL ORD GBP0.10", stockType: StockTypes.Share, aliases: new List<StockAlias>
-                {
-                    new(description: "MICRO FOCUS INT. PROVISIONAL CAP RET SHS")
-                }),
-            new(stockSymbol: "MRW.L", description: "MORRISON(W)SUPRMKT ORD GBP0.10", stockType: StockTypes.Share),
-            new(stockSymbol: "MCG.L", description: "Mobico Group PLC",
-                stockType: StockTypes.Share, notes: "Formerly National Express", aliases: new List<StockAlias>
-                {
-                    new(description: "National Express Group PLC")
-                }, alternativeSymbols: new List<AlternativeSymbol>
-                {
-                    new(alternative: "NEX.L")
-                }),
-            new(stockSymbol: "NG.L", description: "National Grid PLC", stockType: StockTypes.Share, aliases: new List<StockAlias>
-            {
-                new(description: "NATIONAL GRID ORD GBP0.113953")
-            }),
-            new(stockSymbol: "RMG.L", description: "Royal Mail PLC", stockType: StockTypes.Share),
-            new(stockSymbol: "SMT.L", description: "Scottish Mortgage Ord", stockType: StockTypes.Share),
-            new(stockSymbol: "TSCO.L", description: "TESCO ORD GBP0.05", stockType: StockTypes.Share),
-            new(stockSymbol: "TET.L", description: "Treatt PLC", stockType: StockTypes.Share),
-            new(stockSymbol: "T25", description: "UK(GOVT OF) 2% SNR 07/09/2025 GBP1000", stockType: StockTypes.Gilt),
-            new(stockSymbol: "VECP.L", description: "Vanguard EUR Corp Bd UCITS ETF GBP", stockType: StockTypes.Etf),
-            new(stockSymbol: "VMID.L", description: "Vanguard FTSE 250 UCITS ETF", stockType: StockTypes.Etf),
-            new(stockSymbol: "VWRP.L", description: "Vanguard FTSE All-World ETF USD Acc GBP", stockType: StockTypes.Etf, aliases: new List<StockAlias>
-            {
-                new(description: "Vanguard FTSE All-World UCITS ETF" // is this correct?
-                )
-            }),
-            new(stockSymbol: "VWRL.L", description: "Vanguard FTSE All-World UCITS ETF GBP", stockType: StockTypes.Etf),
-            new(stockSymbol: "VAPX.L", description: "Vanguard FTSE Dev AsiaPac exJpn ETF $Dis GBP",
-                stockType: StockTypes.Etf),
-            new(stockSymbol: "VEVE.L", description: "Vanguard FTSE Dev World ETF $Dis GBP", stockType: StockTypes.Etf),
-            new(stockSymbol: "VFEM.L", description: "Vanguard FTSE Emerg Markets ETF $Dis GBP",
-                stockType: StockTypes.Etf),
-            new(stockSymbol: "VJPN.L", description: "Vanguard FTSE Japan ETF $Dis GBP", stockType: StockTypes.Etf),
-            new(stockSymbol: "VUCP.L", description: "Vanguard USD Corp Bd UCITS ETF GBP", stockType: StockTypes.Etf),
-            new(stockSymbol: "JDW.L", description: "Wetherspoon (J D) PLC", stockType: StockTypes.Share),
-            new(stockSymbol: "WTB.L", description: "Whitbread PLC", stockType: StockTypes.Share),
-            new(stockSymbol: "SGBX.L", description: "WisdomTree Physical Swiss Gold ETC GBP",
-                stockType: StockTypes.Etf),
-            new(stockSymbol: "XUKX.L", description: "Xtrackers FTSE 100 Income ETF 1D", stockType: StockTypes.Etf),
-            new(stockSymbol: "XASX.L", description: "Xtrackers MSCI UK ESG ETF 1D £", stockType: StockTypes.Etf),
-            new(stockSymbol: "XMWD.L", description: "Xtrackers MSCI World Swap ETF 1C USD", stockType: StockTypes.Etf, aliases: new List<StockAlias>
-            {
-                new(description: "XTRACKERS MSCI WORLD SWAP UCITS ETF 1" // is this the same thing??
-                )
-            })
+            new Stock.StockBuilder("AZN.L", "AstraZeneca PLC", StockTypes.Share).Build(),
+            new Stock.StockBuilder("GOLD", "Gold", StockTypes.Commodity).Build(),
+            new Stock.StockBuilder("BP.L", "BP PLC", StockTypes.Share).Build(),
+            new Stock.StockBuilder("BLND.L", "British Land Co PLC", StockTypes.Share).Build(),
+            new Stock.StockBuilder("BVIC.L", "Britvic PLC", StockTypes.Share).Build(),
+            new Stock.StockBuilder("CPI.L", "Capita PLC", StockTypes.Share)
+                .WithAliases(new List<StockAlias> { new(description: "CAPITA PLC ORD GBP0.02066666(NP-24/05/") })
+                .Build(),
+            new Stock.StockBuilder("CML.L", "CML Microsystems PLC", StockTypes.Share).Build(),
+            new Stock.StockBuilder("XWND.L", "DB X-TRACKERS MSCI WLD TRN IDX UCITS ETF1", StockTypes.Etf)
+                .WithNotes("aka db x-trackers MSCI World Information Technology TRN Index UCITS ETF, Acquired by DBK.GE")
+                .Build(),
+            new Stock.StockBuilder("DLG.L", "Direct Line Insurance Group PLC", StockTypes.Share)
+                .WithAliases(aliases: new List<StockAlias> { new(description: "DIRECT LINE INS GR ORD GBP0.10") })
+                .Build(),
+            new Stock.StockBuilder("ECOR.L", "Ecora Resources PLC", StockTypes.Share).Build(),
+            new Stock.StockBuilder("EIG.L", "EI GROUP PLC ORD GBP0.025", StockTypes.Share)
+                .WithNotes("formerly Enterprise Inns")
+                .Build(),
+            new Stock.StockBuilder("SONG.L", "Hipgnosis Songs Ord", StockTypes.Share).Build(),
+            new Stock.StockBuilder("T26A", "HM TREASURY GILT 0.375% (22/10/26)", StockTypes.Gilt).Build(),
+            new Stock.StockBuilder("HSV.L", "HOMESERVE ORD GBP0.025", StockTypes.Share).Build(),
+            new Stock.StockBuilder("IBST.L", "Ibstock PLC", StockTypes.Share).Build(),
+            new Stock.StockBuilder("IDS.L", "International Distributions Services PLC", StockTypes.Share).Build(),
+            new Stock.StockBuilder("SLXX.L", "iShares Core £ Corp Bond ETF GBP Dist", StockTypes.Etf).Build(),
+            new Stock.StockBuilder("ISF.L", "iShares Core FTSE 100 ETF GBP Dist", StockTypes.Etf).Build(),
+            new Stock.StockBuilder("SWDA.L", "iShares Core MSCI World ETF USD Acc GBP", StockTypes.Etf)
+                .WithIsin("IE00B4L5Y983")
+                .Build(),
+            new Stock.StockBuilder("IGLT.L", "iShares Core UK Gilts ETF GBP Dist", StockTypes.Etf).Build(),
+            new Stock.StockBuilder("MIDD.L", "iShares FTSE 250 ETF GBP Dist", StockTypes.Etf).Build(),
+            new Stock.StockBuilder("IUKP.L", "iShares UK Property ETF GBP Dist", StockTypes.Etf).Build(),
+            new Stock.StockBuilder("GILS.L", "Lyxor Core UK Govt Bd (DR) ETF D GBP", StockTypes.Etf).Build(),
+            new Stock.StockBuilder("MICROFOCUS", "MICRO FOCUS INTL ORD GBP0.10", StockTypes.Share)
+                .WithAliases(new List<StockAlias> { new(description: "MICRO FOCUS INT. PROVISIONAL CAP RET SHS") })
+                .WithNotes("Not the right ticker")
+                .Build(),
+            new Stock.StockBuilder("MRW.L", "MORRISON(W)SUPRMKT ORD GBP0.10", StockTypes.Share)
+                .WithAliases(new List<StockAlias> { new(description: "MORRISON (W) SUPERMARKETS PLC ORD GBP0.10") })
+                .Build(),
+            new Stock.StockBuilder("MCG.L", "MOBICO GROUP PLC ORD GBP0.10", StockTypes.Share)
+                .WithAliases(new List<StockAlias> { new(description: "MOBICO GROUP PLC ORD GBP0.10") })
+                .WithAlternativeSymbols(new List<AlternativeSymbol> { new(alternative: "NEX.L") })
+                .WithNotes("Formerly National Express")
+                .Build(),
+            new Stock.StockBuilder("NG.L", "NATIONAL GRID ORD GBP0.113953", StockTypes.Share)
+                .WithAliases(new List<StockAlias> { new(description: "NATIONAL GRID ORD GBP0.113953") })
+                .Build(),
+            new Stock.StockBuilder("RMG.L", "ROYAL MAIL PLC ORD GBP0.01", StockTypes.Share).Build(),
+            new Stock.StockBuilder("SMT.L", "SCOTTISH MORTGAGE ORD GBP0.05", StockTypes.Share).Build(),
+            new Stock.StockBuilder("TSCO.L", "TESCO ORD GBP0.05", StockTypes.Share).Build(),
+            new Stock.StockBuilder("TET.L", "TREATT PLC ORD GBP0.10", StockTypes.Share).Build(),
+            new Stock.StockBuilder("T25", "UK(GOVT OF) 2% SNR 07/09/2025 GBP1000", StockTypes.Gilt).Build(),
+            new Stock.StockBuilder("VECP.L", "VANGUARD EUR CORP BD UCITS ETF GBP", StockTypes.Etf).Build(),
+            new Stock.StockBuilder("VMID.L", "VANGUARD FTSE 250 UCITS ETF", StockTypes.Etf).Build(),
+            new Stock.StockBuilder("VWRP.L", "VANGUARD FTSE ALL-WORLD ETF USD ACC GBP", StockTypes.Etf)
+                .WithAliases(
+                    new List<StockAlias>
+                    {
+                        new(description: "VANGUARD FTSE ALL-WORLD UCITS ETF" // is this correct?
+                        )
+                    })
+                .Build(),
+            new Stock.StockBuilder("VWRL.L", "Vanguard FTSE All-World UCITS ETF GBP", StockTypes.Etf).Build(),
+            new Stock.StockBuilder("VAPX.L", "Vanguard FTSE Dev AsiaPac exJpn ETF $Dis GBP", StockTypes.Etf).Build(),
+            new Stock.StockBuilder("VEVE.L", "Vanguard FTSE Dev World ETF $Dis GBP", StockTypes.Etf).Build(),
+            new Stock.StockBuilder("VFEM.L", "Vanguard FTSE Emerg Markets ETF $Dis GBP", StockTypes.Etf).Build(),
+            new Stock.StockBuilder("VJPN.L", "Vanguard FTSE Japan ETF $Dis GBP", StockTypes.Etf).Build(),
+            new Stock.StockBuilder("VUCP.L", "Vanguard USD Corp Bd UCITS ETF GBP", StockTypes.Etf).Build(),
+            new Stock.StockBuilder("JDW.L", "Wetherspoon (J D) PLC", StockTypes.Share).Build(),
+            new Stock.StockBuilder("WTB.L", "Whitbread PLC", StockTypes.Share).Build(),
+            new Stock.StockBuilder("SGBX.L", "WisdomTree Physical Swiss Gold ETC GBP", StockTypes.Etf).Build(),
+            new Stock.StockBuilder("XUKX.L", "Xtrackers FTSE 100 Income ETF 1D", StockTypes.Etf).Build(),
+            new Stock.StockBuilder("XASX.L", "Xtrackers MSCI UK ESG ETF 1D £", StockTypes.Etf).Build(),
+            new Stock.StockBuilder("XMWD.L", "Xtrackers MSCI World Swap ETF 1C USD", StockTypes.Etf)
+                .WithAliases(
+                    new List<StockAlias>
+                    {
+                        new(description: "XTRACKERS MSCI WORLD SWAP UCITS ETF 1" // is this the same thing??
+                        )
+                    })
+                .Build(),
         };
 
         return stocks;
-
     }
 }

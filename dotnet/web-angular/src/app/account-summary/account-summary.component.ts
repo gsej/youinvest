@@ -8,7 +8,7 @@ import { AccountSummary } from '../models/accountSummary';
 })
 export class AccountSummaryComponent {
 
-  public displayedColumns = ['stockSymbol', 'stockDescription', 'quantity', 'price', 'currency', 'ageInDays'];
+  public displayedColumns = ['stockSymbol', 'stockDescription', 'quantity', 'price', 'currency', 'ageInDays', 'value'];
 
   @Input()
   public accountSummary: AccountSummary | null = null;

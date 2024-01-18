@@ -34,10 +34,11 @@ public class StockPrice
     [Required]
     public decimal Price { get; set; }
     
-    [Required]
-    public string Currency { get; set; }
+    //[Required]
+    [MaxLength(10)]
+    public string? Currency { get; set; }
     
-  //  [Required]
-  [MaxLength(100)]
+    //  [Required]
+    [MaxLength(100)]
     public string Source { get; set; }
 }

@@ -51,11 +51,19 @@ public class SummaryQueryHandler : ISummaryQueryHandler
 
             // TODO: sometimes stock is null. need to find out why and enforce integrity.
             
-            
             if (totalHeld != 0 && stock != null)
             {
                 var stockPrice = await _context.GetStockPrice(stock.StockSymbol, request.Date);
-                holdings.Add(new Holding(stock.StockSymbol, stock.Description, totalHeld, stockPrice));
+
+                decimal? value = null;
+                
+                // TODO: deal with currencies
+                if (stockPrice != null && stockPrice.Currency == "GBP")
+                {
+                    value = totalHeld * stockPrice.Price;
+                }
+                
+                holdings.Add(new Holding(stock.StockSymbol, stock.Description, totalHeld, stockPrice, value));
             }
          
         }
