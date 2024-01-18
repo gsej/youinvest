@@ -48,9 +48,7 @@ public class StockPriceLoader
 
         foreach (var stockPriceDto in stockPrices)
         {
-            decimal price;
-
-            var priceParsable = decimal.TryParse(stockPriceDto.Price, null, out price);
+            var priceParsable = decimal.TryParse(stockPriceDto.Price, null, out var price);
 
             if (!priceParsable)
             {
@@ -80,11 +78,15 @@ public class StockPriceLoader
             }
             if (existing == null)
             {
+                var currency = string.IsNullOrEmpty(stockPriceDto.Currency)
+                    ? matchingStock?.DefaultCurrency
+                    : stockPriceDto.Currency;
+                
                 var stockPrice = new StockPrice(
                     stockSymbol: symbol,
                     date: stockPriceDto.Date,
                     price: price,
-                    currency: stockPriceDto.Currency, 
+                    currency: currency, 
                     source: source);
 
                 _context.StockPrices.Add(stockPrice);

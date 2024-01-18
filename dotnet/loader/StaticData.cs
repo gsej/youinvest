@@ -39,6 +39,7 @@ public static class StaticData
                 .Build(),
             new Stock.StockBuilder("DLG.L", "Direct Line Insurance Group PLC", StockTypes.Share)
                 .WithAliases(aliases: new List<StockAlias> { new(description: "DIRECT LINE INS GR ORD GBP0.10") })
+                .WithDefaultCurrency("GBp")
                 .Build(),
             new Stock.StockBuilder("ECOR.L", "Ecora Resources PLC", StockTypes.Share).Build(),
             new Stock.StockBuilder("EIG.L", "EI GROUP PLC ORD GBP0.025", StockTypes.Share)
@@ -48,7 +49,9 @@ public static class StaticData
             new Stock.StockBuilder("T26A", "HM TREASURY GILT 0.375% (22/10/26)", StockTypes.Gilt).Build(),
             new Stock.StockBuilder("HSV.L", "HOMESERVE ORD GBP0.025", StockTypes.Share).Build(),
             new Stock.StockBuilder("IBST.L", "Ibstock PLC", StockTypes.Share).Build(),
-            new Stock.StockBuilder("IDS.L", "International Distributions Services PLC", StockTypes.Share).Build(),
+            new Stock.StockBuilder("IDS.L", "International Distributions Services PLC", StockTypes.Share)
+                .WithDefaultCurrency("GBp")
+                .Build(),
             new Stock.StockBuilder("SLXX.L", "iShares Core £ Corp Bond ETF GBP Dist", StockTypes.Etf).Build(),
             new Stock.StockBuilder("ISF.L", "iShares Core FTSE 100 ETF GBP Dist", StockTypes.Etf).Build(),
             new Stock.StockBuilder("SWDA.L", "iShares Core MSCI World ETF USD Acc GBP", StockTypes.Etf)
@@ -56,8 +59,12 @@ public static class StaticData
                 .Build(),
             new Stock.StockBuilder("IGLT.L", "iShares Core UK Gilts ETF GBP Dist", StockTypes.Etf).Build(),
             new Stock.StockBuilder("MIDD.L", "iShares FTSE 250 ETF GBP Dist", StockTypes.Etf).Build(),
-            new Stock.StockBuilder("IUKP.L", "iShares UK Property ETF GBP Dist", StockTypes.Etf).Build(),
-            new Stock.StockBuilder("GILS.L", "Lyxor Core UK Govt Bd (DR) ETF D GBP", StockTypes.Etf).Build(),
+            new Stock.StockBuilder("IUKP.L", "iShares UK Property ETF GBP Dist", StockTypes.Etf)
+                .WithDefaultCurrency("GBp")
+                .Build(),
+            new Stock.StockBuilder("GILS.L", "Lyxor Core UK Govt Bd (DR) ETF D GBP", StockTypes.Etf)
+                .WithDefaultCurrency("GBp")
+                .Build(),
             new Stock.StockBuilder("MICROFOCUS", "MICRO FOCUS INTL ORD GBP0.10", StockTypes.Share)
                 .WithAliases(new List<StockAlias> { new(description: "MICRO FOCUS INT. PROVISIONAL CAP RET SHS") })
                 .WithNotes("Not the right ticker")

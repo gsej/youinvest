@@ -43,7 +43,7 @@ public class GetStockPriceTests : IDisposable, IAsyncDisposable
     public async Task Handle_WhenOneStockPriceIsFound_ReturnsPriceWithCorrectAge(string queryDate, int expectedAgeInDays)
     {
         // arrange
-        var stock = new Stock("ABC.L", "some stock", StockTypes.Share);
+        var stock = new Stock.StockBuilder("ABC.L", "some stock", StockTypes.Share).Build();
         _context.Stocks.Add(stock);
 
         var expectedStockPrice = new StockPrice(stock.StockSymbol, "2023-01-01", 100m, "GBP", "CI");
@@ -65,7 +65,7 @@ public class GetStockPriceTests : IDisposable, IAsyncDisposable
     public async Task Handle_WhenMultipleStockPricesExist_ReturnsNewestPriceNotInTheFuture()
     {
         // arrange
-        var stock = new Stock("ABC.L", "some stock", StockTypes.Share);
+        var stock = new Stock.StockBuilder("ABC.L", "some stock", StockTypes.Share).Build();
         _context.Stocks.Add(stock);
         
         var olderStockPrice = new StockPrice(stock.StockSymbol, "2023-01-01", 90m, "GBP", "CI");
