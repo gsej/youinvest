@@ -16,5 +16,5 @@ variable "storage_account_name" {
 }
 
 variable "youinvest_sql_password" {
-  
+  default = "Password123!"  
 }
